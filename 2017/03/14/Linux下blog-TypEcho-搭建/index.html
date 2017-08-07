@@ -1,69 +1,115 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>1ABlades&#39; blog</title>
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="1ABlades">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="Linux下blog(TypEcho)搭建"/>
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="1ABlades&#39; blog"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="123.206.81.232"/>
   
-  <link href="/atom.xml" rel="self"/>
+    <link rel="alternate" href="/atom.xml" title="1ABlades&#39; blog" type="application/atom+xml">
   
-  <link href="123.206.81.232/"/>
-  <updated>2017-08-05T06:03:19.321Z</updated>
-  <id>123.206.81.232/</id>
   
-  <author>
-    <name>1ABlades</name>
-    
-  </author>
+    <link rel="icon" href="/favicon.png">
   
-  <generator uri="http://hexo.io/">Hexo</generator>
+
+  <!-- Site Title -->
+  <title>1ABlades' blog</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
   
-  <entry>
-    <title>test</title>
-    <link href="123.206.81.232/2017/08/05/test/"/>
-    <id>123.206.81.232/2017/08/05/test/</id>
-    <published>2017-08-05T06:03:19.000Z</published>
-    <updated>2017-08-05T06:03:19.321Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
   
-  <entry>
-    <title>Hello World</title>
-    <link href="123.206.81.232/2017/08/03/hello-world/"/>
-    <id>123.206.81.232/2017/08/03/hello-world/</id>
-    <published>2017-08-03T06:59:41.054Z</published>
-    <updated>2017-08-03T06:03:42.046Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Linux下blog(TypEcho)搭建</title>
-    <link href="123.206.81.232/2017/03/14/Linux%E4%B8%8Bblog-TypEcho-%E6%90%AD%E5%BB%BA/"/>
-    <id>123.206.81.232/2017/03/14/Linux下blog-TypEcho-搭建/</id>
-    <published>2017-03-14T08:48:57.000Z</published>
-    <updated>2017-08-07T08:50:17.987Z</updated>
-    
-    <content type="html"><![CDATA[<p>刚搭了博客，分享下过程。</p>
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Linux下blog(TypEcho)搭建</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/1ABlades">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:377781971@qq.com">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By 1ABlades</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2017-03-14</span>
+            <span class="time">04:50:30</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>刚搭了博客，分享下过程。</p>
 <h2 id="一、服务器"><a href="#一、服务器" class="headerlink" title="一、服务器"></a>一、服务器</h2><p>首先你需要一台服务器，我的是腾讯云1元的，配置1G 1M，需要认证学生信息，一天200台，还是挺好抢的，抢到后还会送你25元域名代金券。 <a href="https://www.qcloud.com/act/campus" target="_blank" rel="external">https://www.qcloud.com/act/campus</a><br>系统的话我装的是Centos 7，在这与低版本最大的不同就是Centos 7中不再使用service而是用systemctl代替，下面也会提到。</p>
 <h2 id="二、环境"><a href="#二、环境" class="headerlink" title="二、环境"></a>二、环境</h2><p>需要LAMP，也就是Linux+Apache+MySQL+PHP。</p>
 <p><strong>1、安装Apache</strong></p>
@@ -140,16 +186,43 @@ $ yum install php-devel
 <li><p>提前创建数据库。</p>
 </li>
 </ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;刚搭了博客，分享下过程。&lt;/p&gt;
-&lt;h2 id=&quot;一、服务器&quot;&gt;&lt;a href=&quot;#一、服务器&quot; class=&quot;headerlink&quot; title=&quot;一、服务器&quot;&gt;&lt;/a&gt;一、服务器&lt;/h2&gt;&lt;p&gt;首先你需要一台服务器，我的是腾讯云1元的，配置1G 1M，需要认证学生信息，
-    
-    </summary>
-    
-    
-  </entry>
-  
-</feed>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
