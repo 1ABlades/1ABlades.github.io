@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="1ablades.github.io/"/>
-  <updated>2017-08-09T07:05:09.525Z</updated>
+  <updated>2017-08-09T07:16:47.818Z</updated>
   <id>1ablades.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="1ablades.github.io/2017/08/09/RSA%E5%85%B1%E6%A8%A1%E6%94%BB%E5%87%BB/"/>
     <id>1ablades.github.io/2017/08/09/RSA共模攻击/</id>
     <published>2017-08-09T07:04:27.000Z</published>
-    <updated>2017-08-09T07:05:09.525Z</updated>
+    <updated>2017-08-09T07:16:47.818Z</updated>
     
     <content type="html"><![CDATA[<h2 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h2><p>RSA为一种加密算法，公钥加密，私钥解密。<br>算法涉及三个参数，<code>n</code>、<code>e1</code>、<code>e2</code>。其中n为两个大质数<code>p</code>、<code>q</code>的积，<code>n</code>的二进制表示密钥所占用位数，就是密钥长度。<code>e1</code>可以随意取，但条件是<code>e1与(p-1)*(q-1)</code>互质，然后<code>e2</code>要求<code>(e2*e1)mod((p-1)*(q-1))=1</code>。    </p>
 <p>加解密算法：<br>A为明文，B为密文，则：<code>B=A^e2 mod n</code>; <code>B=A^e1 mod n</code>。</p>
@@ -54,7 +54,7 @@ c2 = m^e2 mod n
 <ul>
 <li>注意：<br>  从前面的式子<code>e1*s1 + e2*s2 = 1</code>可以知道，<code>s1</code>、<code>s2</code>中有一个为负数，而负数次幂运算，比如这里求<code>c2</code>的<code>s2</code>次幂，需要先计算c2的模反元素<code>c2r</code>，然后再求<code>c2r</code>的<code>-s2</code>次幂。</li>
 </ul>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>这里我找一个CTF的例子<br><a href="http://www.shiyanbar.com/ctf/1772" target="_blank" rel="external">http://www.shiyanbar.com/ctf/1772</a><br>首先分析一下数据，发现n都是相同的，由此联想到共模攻击。<br>先写一个脚本找出两组e互质的数据：  </p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>这里我找一个CTF的例子<br><a href="http://www.shiyanbar.com/ctf/1834" target="_blank" rel="external">http://www.shiyanbar.com/ctf/1834</a><br>首先分析一下数据，发现n都是相同的，由此联想到共模攻击。<br>先写一个脚本找出两组e互质的数据：  </p>
 <pre><code># coding=utf-8
 # author : 1ABlades
 
@@ -139,7 +139,6 @@ if __name__ == &apos;__main__&apos;:
   main()
 </code></pre><h5 id="referer"><a href="#referer" class="headerlink" title="referer:"></a>referer:</h5><ul>
 <li><a href="http://baike.baidu.com/link?url=4j6REyjazQ04yJ9y0N1FAjtD5VuCudas6OwMVKlvfyzHQTvgpEv_jYiIwt6g0CzJw0o9UfWDD1P4c1d4jne9qbNh8pstrGVML46AHBICrJeVqfjPcq1NHvZmbmKnf-4yX-qSivrS_LhcfctVch5jF_#3_1" target="_blank" rel="external">http://baike.baidu.com/link?url=4j6REyjazQ04yJ9y0N1FAjtD5VuCudas6OwMVKlvfyzHQTvgpEv_jYiIwt6g0CzJw0o9UfWDD1P4c1d4jne9qbNh8pstrGVML46AHBICrJeVqfjPcq1NHvZmbmKnf-4yX-qSivrS_LhcfctVch5jF_#3_1</a>  </li>
-<li><a href="http://baike.baidu.com/link?url=7eX9fra5A6pQiMRGs1X3enVUqhuYz5hqmJ-qNBloyrZm8dqvhKkR5vWEIrzxejkwyvZUPi5aeWn1h6YkDb7Kz4G-UAp4A6q0KbXEoMYrD3QDK8OQ3lu-jRWm6F_zwZmk9zpbPy1mOIOJo7-3PqBOeq#4_9" target="_blank" rel="external">http://baike.baidu.com/link?url=7eX9fra5A6pQiMRGs1X3enVUqhuYz5hqmJ-qNBloyrZm8dqvhKkR5vWEIrzxejkwyvZUPi5aeWn1h6YkDb7Kz4G-UAp4A6q0KbXEoMYrD3QDK8OQ3lu-jRWm6F_zwZmk9zpbPy1mOIOJo7-3PqBOeq#4_9</a></li>
 <li><a href="http://www.tuicool.com/articles/IzuYfu" target="_blank" rel="external">http://www.tuicool.com/articles/IzuYfu</a></li>
 </ul>
 ]]></content>

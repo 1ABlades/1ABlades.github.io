@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    {% if theme.canvas_nest %}
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
     
     <title>RSA共模攻击 | 1ABlades&#39; blog</title>
     
@@ -95,7 +97,7 @@ c2 = m^e2 mod n
 <ul>
 <li>注意：<br>  从前面的式子<code>e1*s1 + e2*s2 = 1</code>可以知道，<code>s1</code>、<code>s2</code>中有一个为负数，而负数次幂运算，比如这里求<code>c2</code>的<code>s2</code>次幂，需要先计算c2的模反元素<code>c2r</code>，然后再求<code>c2r</code>的<code>-s2</code>次幂。</li>
 </ul>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>这里我找一个CTF的例子<br><a href="http://www.shiyanbar.com/ctf/1772" target="_blank" rel="external">http://www.shiyanbar.com/ctf/1772</a><br>首先分析一下数据，发现n都是相同的，由此联想到共模攻击。<br>先写一个脚本找出两组e互质的数据：  </p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>这里我找一个CTF的例子<br><a href="http://www.shiyanbar.com/ctf/1834" target="_blank" rel="external">http://www.shiyanbar.com/ctf/1834</a><br>首先分析一下数据，发现n都是相同的，由此联想到共模攻击。<br>先写一个脚本找出两组e互质的数据：  </p>
 <pre><code># coding=utf-8
 # author : 1ABlades
 
@@ -180,7 +182,6 @@ if __name__ == &apos;__main__&apos;:
   main()
 </code></pre><h5 id="referer"><a href="#referer" class="headerlink" title="referer:"></a>referer:</h5><ul>
 <li><a href="http://baike.baidu.com/link?url=4j6REyjazQ04yJ9y0N1FAjtD5VuCudas6OwMVKlvfyzHQTvgpEv_jYiIwt6g0CzJw0o9UfWDD1P4c1d4jne9qbNh8pstrGVML46AHBICrJeVqfjPcq1NHvZmbmKnf-4yX-qSivrS_LhcfctVch5jF_#3_1" target="_blank" rel="external">http://baike.baidu.com/link?url=4j6REyjazQ04yJ9y0N1FAjtD5VuCudas6OwMVKlvfyzHQTvgpEv_jYiIwt6g0CzJw0o9UfWDD1P4c1d4jne9qbNh8pstrGVML46AHBICrJeVqfjPcq1NHvZmbmKnf-4yX-qSivrS_LhcfctVch5jF_#3_1</a>  </li>
-<li><a href="http://baike.baidu.com/link?url=7eX9fra5A6pQiMRGs1X3enVUqhuYz5hqmJ-qNBloyrZm8dqvhKkR5vWEIrzxejkwyvZUPi5aeWn1h6YkDb7Kz4G-UAp4A6q0KbXEoMYrD3QDK8OQ3lu-jRWm6F_zwZmk9zpbPy1mOIOJo7-3PqBOeq#4_9" target="_blank" rel="external">http://baike.baidu.com/link?url=7eX9fra5A6pQiMRGs1X3enVUqhuYz5hqmJ-qNBloyrZm8dqvhKkR5vWEIrzxejkwyvZUPi5aeWn1h6YkDb7Kz4G-UAp4A6q0KbXEoMYrD3QDK8OQ3lu-jRWm6F_zwZmk9zpbPy1mOIOJo7-3PqBOeq#4_9</a></li>
 <li><a href="http://www.tuicool.com/articles/IzuYfu" target="_blank" rel="external">http://www.tuicool.com/articles/IzuYfu</a></li>
 </ul>
 
