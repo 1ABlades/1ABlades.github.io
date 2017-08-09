@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="1ablades.github.io/"/>
-  <updated>2017-08-09T01:29:08.318Z</updated>
+  <updated>2017-08-09T07:05:09.525Z</updated>
   <id>1ablades.github.io/</id>
   
   <author>
@@ -14,6 +14,146 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RSA共模攻击</title>
+    <link href="1ablades.github.io/2017/08/09/RSA%E5%85%B1%E6%A8%A1%E6%94%BB%E5%87%BB/"/>
+    <id>1ablades.github.io/2017/08/09/RSA共模攻击/</id>
+    <published>2017-08-09T07:04:27.000Z</published>
+    <updated>2017-08-09T07:05:09.525Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h2><p>RSA为一种加密算法，公钥加密，私钥解密。<br>算法涉及三个参数，<code>n</code>、<code>e1</code>、<code>e2</code>。其中n为两个大质数<code>p</code>、<code>q</code>的积，<code>n</code>的二进制表示密钥所占用位数，就是密钥长度。<code>e1</code>可以随意取，但条件是<code>e1与(p-1)*(q-1)</code>互质，然后<code>e2</code>要求<code>(e2*e1)mod((p-1)*(q-1))=1</code>。    </p>
+<p>加解密算法：<br>A为明文，B为密文，则：<code>B=A^e2 mod n</code>; <code>B=A^e1 mod n</code>。</p>
+<h2 id="共模攻击"><a href="#共模攻击" class="headerlink" title="共模攻击"></a>共模攻击</h2><p>假设 有一条信息m，用公钥加密信息(使用了相同的模数n)：</p>
+<pre><code>c1 = m^e1 mod n
+c2 = m^e2 mod n
+</code></pre><p>可以利用密钥d1，d2来解密：</p>
+<pre><code>m = c1^d1 mod n
+m = c2^d2 mod n
+</code></pre><p>此时如果有一个攻击者，得到了密文<code>c1</code>、<code>c2</code>，因为公钥公开，而模数相同，攻击者姐可以破解密文获得信息。<br>此时已知信息：<br><code>c1</code>, <code>c2</code>, <code>e1</code>, <code>e2</code>, <code>n</code>  </p>
+<pre><code>gcd(e1, e2) = 1
+m = c1^d1 mod n
+m = c2^d2 mod n
+</code></pre><p>求出m。  </p>
+<p>接下来就到了高数时间。<br><code>e1</code>,<code>e2</code>互质</p>
+<pre><code>gcd(e1,e2)=1
+</code></pre><p>则有  </p>
+<pre><code>e1*s1 + e2*s2 = 1
+</code></pre><p>这里涉及到欧几里德扩展算法，可以看我另一篇文章：<br>因为  </p>
+<pre><code>c1 = m^e1 mod n
+c2 = m^e2 mod n  
+</code></pre><p>所以</p>
+<pre><code>(c1^s1*c2^s2) mod n = ((m^e1 mod n)^s1*(m^e2 mod n)^s2) mod n
+</code></pre><p>即</p>
+<pre><code>(c1^s1*c2^s2) mod n = (m^(e1^s1 + e2^s2)) mod n
+</code></pre><p>所以</p>
+<pre><code>(c1^s1*c2^s2) mod n = (m^(1)) mod n
+</code></pre><p>即</p>
+<pre><code>c1^s1*c2^s2= m
+</code></pre><p>得证，可求出m。</p>
+<ul>
+<li>注意：<br>  从前面的式子<code>e1*s1 + e2*s2 = 1</code>可以知道，<code>s1</code>、<code>s2</code>中有一个为负数，而负数次幂运算，比如这里求<code>c2</code>的<code>s2</code>次幂，需要先计算c2的模反元素<code>c2r</code>，然后再求<code>c2r</code>的<code>-s2</code>次幂。</li>
+</ul>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>这里我找一个CTF的例子<br><a href="http://www.shiyanbar.com/ctf/1772" target="_blank" rel="external">http://www.shiyanbar.com/ctf/1772</a><br>首先分析一下数据，发现n都是相同的，由此联想到共模攻击。<br>先写一个脚本找出两组e互质的数据：  </p>
+<pre><code># coding=utf-8
+# author : 1ABlades
+
+import re, os
+
+base_dir = os.path.dirname(__file__)
+f = open(base_dir + &quot;\data.txt&quot;, &apos;r&apos;)
+str = f.read()
+
+reobj = re.compile(&quot;\: 0x(\w+)L* \:&quot;)
+e = reobj.findall(str)
+
+n = 0
+for i in e:
+n = n+1
+m = 0
+for j in e:
+    m = m + 1
+    for p in i:
+        if p==&apos;L&apos;:
+            i = i[:-1]
+    for q in j:
+        if q==&apos;L&apos;:
+            j = j[:-1]
+    a = int(i,16)
+    b = int(j,16)
+    if(a&lt;=0 or b&lt;=0 or a==b):
+        continue
+    elif(a==1 or b==1):
+        print i + &quot;and&quot; + j
+    else:
+        if a &lt; b:
+            t = a
+            a = b
+            b = t
+        while 1:
+            t = a%b
+            if t==0:
+                break
+            else:
+                a = b
+                b = t
+        if b&gt;1:
+            continue
+        else:
+            print &apos;group&apos;,n ,&apos;and&apos;, m ,&apos;: &apos; + i + &quot;  &quot; + j
+</code></pre><p>找出第9和19组数据，写脚本进行破解：</p>
+<pre><code># -*- coding: utf-8 -*-
+# author ：Swing   bolg: www.wing3.cn
+
+from libnum import n2s,s2n
+from gmpy2 import invert
+
+def egcd(a, b):
+if a == 0:
+    return (b, 0, 1)
+else:
+    g, y, x = egcd(b % a, a)
+    return (g, x - (b // a) * y, y)
+
+def main():
+    n = int(&apos;a5f7f8aaa82921f70aad9ece4eb77b62112f51ac2be75910b3137a28d22d7ef3be3d734dabb9d853221f1a17b1afb956a50236a7e858569cdfec3edf350e1f88ad13c1efdd1e98b151ce2a207e5d8b6ab31c2b66e6114b1d5384c5fa0aad92cc079965d4127339847477877d0a057335e2a761562d2d56f1bebb21374b729743&apos;,16)
+    c1 = int(&apos;6fdcbfb5cd2cacd032ef7200fd49b9f304a6dbd8399f4a91a72d1d9150f97b3b513f44dfc56f6f7c8ec41a8ef9b93a80230a1e65e29d2ef519bb83931d4b0c7a589059cfdf2d571660ab790a9c7e085e3018bf19748abd6d521952b68bc9594c1ad34726658bd9bd445d3b6381ceee57328838e8a129867e505be0ca0d1a1da5&apos;,16)
+    c2 = int(&apos;8caeaa7d272f9606fee9222efd1d922143db738b95bd64746b27bc4c0fd979a2c57b4735131a4391a81bf5f0c0c8eea41d4f91bed4d17784b1956fd89882b97c98009051ac3a03964499c864524d3ddc10299c0290e91707b62ce89b118afe558151be39d61de0483def52c6cb546132ecab85143715bc593a2892b1e41b37b9&apos;,16)
+    e1 = int(&apos;6b8a5ae7&apos;,16)
+    e2 = int(&apos;4042c3955&apos;,16)
+    s = egcd(e1, e2)
+    s1 = s[1]
+    s2 = s[2]
+    # 求模反元素
+    if s1&lt;0:
+        s1 = - s1
+        c1 = invert(c1, n)
+    elif s2&lt;0:
+        s2 = - s2
+        c2 = invert(c2, n)
+
+    m = pow(c1,s1,n)*pow(c2,s2,n) % n
+    print n2s(m)
+
+if __name__ == &apos;__main__&apos;:
+  main()
+</code></pre><h5 id="referer"><a href="#referer" class="headerlink" title="referer:"></a>referer:</h5><ul>
+<li><a href="http://baike.baidu.com/link?url=4j6REyjazQ04yJ9y0N1FAjtD5VuCudas6OwMVKlvfyzHQTvgpEv_jYiIwt6g0CzJw0o9UfWDD1P4c1d4jne9qbNh8pstrGVML46AHBICrJeVqfjPcq1NHvZmbmKnf-4yX-qSivrS_LhcfctVch5jF_#3_1" target="_blank" rel="external">http://baike.baidu.com/link?url=4j6REyjazQ04yJ9y0N1FAjtD5VuCudas6OwMVKlvfyzHQTvgpEv_jYiIwt6g0CzJw0o9UfWDD1P4c1d4jne9qbNh8pstrGVML46AHBICrJeVqfjPcq1NHvZmbmKnf-4yX-qSivrS_LhcfctVch5jF_#3_1</a>  </li>
+<li><a href="http://baike.baidu.com/link?url=7eX9fra5A6pQiMRGs1X3enVUqhuYz5hqmJ-qNBloyrZm8dqvhKkR5vWEIrzxejkwyvZUPi5aeWn1h6YkDb7Kz4G-UAp4A6q0KbXEoMYrD3QDK8OQ3lu-jRWm6F_zwZmk9zpbPy1mOIOJo7-3PqBOeq#4_9" target="_blank" rel="external">http://baike.baidu.com/link?url=7eX9fra5A6pQiMRGs1X3enVUqhuYz5hqmJ-qNBloyrZm8dqvhKkR5vWEIrzxejkwyvZUPi5aeWn1h6YkDb7Kz4G-UAp4A6q0KbXEoMYrD3QDK8OQ3lu-jRWm6F_zwZmk9zpbPy1mOIOJo7-3PqBOeq#4_9</a></li>
+<li><a href="http://www.tuicool.com/articles/IzuYfu" target="_blank" rel="external">http://www.tuicool.com/articles/IzuYfu</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;RSA&quot;&gt;&lt;a href=&quot;#RSA&quot; class=&quot;headerlink&quot; title=&quot;RSA&quot;&gt;&lt;/a&gt;RSA&lt;/h2&gt;&lt;p&gt;RSA为一种加密算法，公钥加密，私钥解密。&lt;br&gt;算法涉及三个参数，&lt;code&gt;n&lt;/code&gt;、&lt;code&gt;e1&lt;/code&gt;、&lt;
+    
+    </summary>
+    
+    
+      <category term="密码学" scheme="1ablades.github.io/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
+    
+  </entry>
   
   <entry>
     <title>hexo+github blog搭建</title>
