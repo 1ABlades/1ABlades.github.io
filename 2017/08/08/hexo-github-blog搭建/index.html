@@ -63,14 +63,14 @@
             </header>
             
             <div class="article-body">
-                <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>因为之前blog用的腾讯云，需要审核，没审核就关掉了，然后就一直没写博客，最近买了台搬瓦工，洛杉矶19.9刀一年，就想把blog再搭起来。<br>之前用的typecho，这次选一个静态的，hexo+github 还省了域名钱。</p>
-<h2 id="0x01-环境准备"><a href="#0x01-环境准备" class="headerlink" title="0x01 环境准备"></a>0x01 环境准备</h2><p>我的主机是centos7系统，就只搭了一个ssr<br>全过程都是root用户，但是是在一个普通用户的家目录里安装的hexo</p>
+                <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>因为之前blog用的腾讯云，需要审核，没审核就关掉了，然后就一直没写博客，最近买了台搬瓦工，洛杉矶19.9刀一年，就想把blog再搭起来。<br>之前用的typecho，这次选一个静态的，hexo+github 还省了域名钱。</p>
+<h1 id="0x01-环境准备"><a href="#0x01-环境准备" class="headerlink" title="0x01 环境准备"></a>0x01 环境准备</h1><p>我的主机是centos7系统，就只搭了一个ssr<br>全过程都是root用户，但是是在一个普通用户的家目录里安装的hexo</p>
 <h3 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><p>~目录下，下载nvm  </p>
 <p><code>git clone https://github.com/cnpm/nvm.git &amp;&amp; cd nvm &amp;&amp; sh ./install.sh ; source $HOME/nvm/nvm.sh ; source $HOME/.nvm/nvm.sh</code> </p>
 <pre><code>nvm install v4.2.0
 nvm use v4.2.0
 </code></pre><p>切换nvm版本<br>我用的4.2.0</p>
-<h2 id="0x02-安全及配置"><a href="#0x02-安全及配置" class="headerlink" title="0x02 安全及配置"></a>0x02 安全及配置</h2><h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><pre><code>npm install -g hexo
+<h1 id="0x02-安全及配置"><a href="#0x02-安全及配置" class="headerlink" title="0x02 安全及配置"></a>0x02 安全及配置</h1><h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><pre><code>npm install -g hexo
 mkdir /home/1ablades/hexo &amp;&amp; hexo init /home/1ablades/hexo
 </code></pre><h3 id="设置git"><a href="#设置git" class="headerlink" title="设置git"></a>设置git</h3><p>配置文件_config.yml</p>
 <blockquote>
@@ -85,14 +85,14 @@ git config --global user.name &quot;Your Name&quot;
 <li>注意：这里的ssh密钥一定要是你系统进行操作的用户的密钥</li>
 </ul>
 <h3 id="创建blog工程"><a href="#创建blog工程" class="headerlink" title="创建blog工程"></a>创建blog工程</h3><p>在github上创建项目 用户名.github.io</p>
-<h2 id="0x03-运行及上传"><a href="#0x03-运行及上传" class="headerlink" title="0x03 运行及上传"></a>0x03 运行及上传</h2><h3 id="编译及运行blog"><a href="#编译及运行blog" class="headerlink" title="编译及运行blog"></a>编译及运行blog</h3><pre><code>hexo generate
+<h1 id="0x03-运行及上传"><a href="#0x03-运行及上传" class="headerlink" title="0x03 运行及上传"></a>0x03 运行及上传</h1><h3 id="编译及运行blog"><a href="#编译及运行blog" class="headerlink" title="编译及运行blog"></a>编译及运行blog</h3><pre><code>hexo generate
 hexo d
 </code></pre><p>访问 <a href="http://用户名.github.io" target="_blank" rel="external">http://用户名.github.io</a><br>就可以看到你的blog啦</p>
 <h3 id="上传文章"><a href="#上传文章" class="headerlink" title="上传文章"></a>上传文章</h3><p>在hexo目录下</p>
 <pre><code>hexo new &quot;文章题目&quot;
 </code></pre><p>创建文章，为markdown格式</p>
-<h2 id="0x04-其他"><a href="#0x04-其他" class="headerlink" title="0x04 其他"></a>0x04 其他</h2><p>###切换主题<br><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">http://theme-next.iissnan.com/getting-started.html</a><br><a href="https://hexo.io/themes/" target="_blank" rel="external">https://hexo.io/themes/</a></p>
-<p>###github上传项目<br>windows下载git<br>在项目目录右键进入bash  </p>
+<h1 id="0x04-其他"><a href="#0x04-其他" class="headerlink" title="0x04 其他"></a>0x04 其他</h1><h3 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h3><p><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">http://theme-next.iissnan.com/getting-started.html</a><br><a href="https://hexo.io/themes/" target="_blank" rel="external">https://hexo.io/themes/</a></p>
+<h3 id="github上传项目"><a href="#github上传项目" class="headerlink" title="github上传项目"></a>github上传项目</h3><p>windows下载git<br>在项目目录右键进入bash  </p>
 <pre><code>git clone https://github/xxx/xxx.git
 </code></pre><p>将项目内容复制到xxx<br>bash中进入xxx  </p>
 <pre><code>git add .
