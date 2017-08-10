@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="1ablades.github.io/"/>
-  <updated>2017-08-09T07:16:47.818Z</updated>
+  <updated>2017-08-10T06:45:47.488Z</updated>
   <id>1ablades.github.io/</id>
   
   <author>
@@ -16,11 +16,108 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>欧几里德算法及扩展算法</title>
+    <link href="1ablades.github.io/2017/08/10/%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%B7%E7%AE%97%E6%B3%95%E5%8F%8A%E6%89%A9%E5%B1%95%E7%AE%97%E6%B3%95/"/>
+    <id>1ablades.github.io/2017/08/10/欧几里德算法及扩展算法/</id>
+    <published>2017-08-10T06:43:38.000Z</published>
+    <updated>2017-08-10T06:45:47.488Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="欧几里得算法"><a href="#欧几里得算法" class="headerlink" title="欧几里得算法"></a>欧几里得算法</h2><p>又称碾转相除法，用于计算两整数a, b 的最大公约数。<br>初学C语言时写的代码：</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main()
+{
+    int a,b,m,n,x;
+    while(scanf(&quot;%d%d&quot;,&amp;a,&amp;b)!=EOF)
+    {
+        if(a==b)
+            printf(&quot;%d %d\n&quot;,a,b);
+        else if(a!=0&amp;&amp;b!=0)
+        {
+            x=1;
+            if(a&gt;b)
+            {
+                m=a;
+                n=b;
+            }
+            else if(a&lt;b)
+            {
+                m=b;
+                n=a;
+            }
+            while(x!=0)
+            {
+                x=m%n;
+                if(x!=0)
+                {
+                    m=n;
+                    n=x;
+                }
+            }
+            printf(&quot;%d %d\n&quot;,n,a*b/n);
+        }
+        else if(a==0&amp;&amp;b!=0)
+            printf(&quot;%d %d\n&quot;,b,a);
+        else if(a!=0&amp;&amp;b==0)
+            printf(&quot;%d %d\n&quot;,a,b);
+
+    }
+    return 0;
+}
+</code></pre><p>原理依赖于下面定理：  </p>
+<blockquote>
+<p>两个整数的最大公约数等于其中较小的那个数和两数相除的最大公约数。</p>
+</blockquote>
+<p>证明：<br>设 a = kb +r， 则r = a mod b<br>假设d为a, b的一个公约数<br>r = kb - a<br>r/d = kb/d -  a/d<br>可知r/d为整数，因此d也是a, b, a%b的公约数， 则得证。</p>
+<h2 id="欧几里得扩展算法"><a href="#欧几里得扩展算法" class="headerlink" title="欧几里得扩展算法"></a>欧几里得扩展算法</h2><p>这里是在学习RSA的共模攻击，所以复习一下欧几里得算法，但是关键是欧几里得算法扩展：  </p>
+<blockquote>
+<p>如果gcd(a, b) = c，则存在x, y，使得c = ax + by。</p>
+</blockquote>
+<p>证明：  </p>
+<p>　　设 <code>a&gt;b</code><br>　　当 <code>b = 0</code>时，<code>gcd(a, b) = a</code>，此时<code>x = 1</code>, <code>y = 0</code>。<br>　　假设 <code>a*x1 + b*y1 = gcd(a, b)</code><br>　　则 <code>b*x2 + (a mod b)*y2 = gcd(b, a mod b)</code><br>　　根据 <code>gcd(a, b) = gcd(b, a mod b)</code>　　<br>　　可得 <code>a*x1 + b*y1 = b*x2 + (a mod b)*y2</code>　　<br>　　因为 <code>a mod b = a - (a/b)*b</code> //这里 ‘/‘ 是整除　　<br>　　所以 <code>a*x1 + b*y1 = b*x2 + (a - (a/b)*b)*y2</code>   　<br>　　　　　　　　　　　<code>= b*x2 + a*y2 - (a/b)*b*y2</code><br>　　　　　　 <code>gcd(a, b)      = a*y2 + b*(x2 - (a/b)*y2)</code><br>　　对比 <code>a*x1 + b*y1 = gcd(a, b)</code>　　<br>　　发现 <code>x1 = y2</code><br>　　　 　 <code>y1 = x2 - (a/b)*y2</code>　　</p>
+<p>算法代码如下：  </p>
+<pre><code>int e_gcd(int a, int b, int x, int y){
+    if(b == 0){
+        x = 1;
+        y = 0;
+        return a;
+    }
+    int ans = e_gcd(b, a%b, x, y);
+    int t = x;
+    x = y;
+    y = x - (a/b)*y;
+    return ans;
+}
+</code></pre><p>扩展欧几里德算法不但能计算<code>gcd(a, b)</code>，还可以求解形如<code>a*x + b*y = c</code> 的通解，但是求通解吊意思也没，所以这里来求一个特殊的解，乘法逆元。</p>
+<h2 id="乘法逆元"><a href="#乘法逆元" class="headerlink" title="乘法逆元"></a>乘法逆元</h2><h5 id="什么叫乘法逆元？"><a href="#什么叫乘法逆元？" class="headerlink" title="什么叫乘法逆元？"></a>什么叫乘法逆元？</h5><p>形如<code>ax≡1(mod b)</code><br>我们称x是a关于f的乘法逆元，还有另一种表达式：  </p>
+<pre><code>a*x + b*y = 1  
+</code></pre><p>也就是<code>gcd(a, b) = 1</code></p>
+<p>在<a href="https://1ablades.github.io/2017/08/09/RSA%E5%85%B1%E6%A8%A1%E6%94%BB%E5%87%BB/">RSA共模攻击</a>中，求乘法逆元函数如下</p>
+<pre><code>def egcd(a, b):
+    if a == 0:
+          return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;欧几里得算法&quot;&gt;&lt;a href=&quot;#欧几里得算法&quot; class=&quot;headerlink&quot; title=&quot;欧几里得算法&quot;&gt;&lt;/a&gt;欧几里得算法&lt;/h2&gt;&lt;p&gt;又称碾转相除法，用于计算两整数a, b 的最大公约数。&lt;br&gt;初学C语言时写的代码：&lt;/p&gt;
+&lt;pre&gt;&lt;c
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="1ablades.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>RSA共模攻击</title>
     <link href="1ablades.github.io/2017/08/09/RSA%E5%85%B1%E6%A8%A1%E6%94%BB%E5%87%BB/"/>
     <id>1ablades.github.io/2017/08/09/RSA共模攻击/</id>
     <published>2017-08-09T07:04:27.000Z</published>
-    <updated>2017-08-09T07:16:47.818Z</updated>
+    <updated>2017-08-10T06:46:34.360Z</updated>
     
     <content type="html"><![CDATA[<h2 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h2><p>RSA为一种加密算法，公钥加密，私钥解密。<br>算法涉及三个参数，<code>n</code>、<code>e1</code>、<code>e2</code>。其中n为两个大质数<code>p</code>、<code>q</code>的积，<code>n</code>的二进制表示密钥所占用位数，就是密钥长度。<code>e1</code>可以随意取，但条件是<code>e1与(p-1)*(q-1)</code>互质，然后<code>e2</code>要求<code>(e2*e1)mod((p-1)*(q-1))=1</code>。    </p>
 <p>加解密算法：<br>A为明文，B为密文，则：<code>B=A^e2 mod n</code>; <code>B=A^e1 mod n</code>。</p>
@@ -39,7 +136,7 @@ m = c2^d2 mod n
 <pre><code>gcd(e1,e2)=1
 </code></pre><p>则有  </p>
 <pre><code>e1*s1 + e2*s2 = 1
-</code></pre><p>这里涉及到欧几里德扩展算法，可以看我另一篇文章：<br>因为  </p>
+</code></pre><p>这里涉及到欧几里德扩展算法，可以看我另一篇文章： <a href="https://1ablades.github.io/2017/08/10/%e6%ac%a7%e5%87%a0%e9%87%8c%e5%be%b7%e7%ae%97%e6%b3%95%e5%8f%8a%e6%89%a9%e5%b1%95%e7%ae%97%e6%b3%95/">欧几里德算法及扩展算法</a><br>因为  </p>
 <pre><code>c1 = m^e1 mod n
 c2 = m^e2 mod n  
 </code></pre><p>所以</p>
