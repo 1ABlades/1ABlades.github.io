@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    
+    <title>Linux下blog(TypEcho)搭建 | 1ABlades&#39; blog</title>
+    
+    <link rel="alternative" href="/atom.xml" title="1ABlades&#39; blog" type="application/atom+xml">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="/libs/fancybox/jquery.fancybox.css" charset="utf-8">
+    
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="site">
+    <header class="site-header">
+        <h1 class="site-title"><a href="/">1ABlades&#39; blog</a></h1>
+        <nav class="site-nav">
+            <ul class="nav">
+                
+                <li><a href="/archives">Archives</a></li>
+                
+                
+                <li><a href="/atom.xml" title="RSS Feed">rss</a></li>
+                
+                <li><a class="toggle-search" href="#search">search</a></li>
+            </ul>
+        </nav>
+        <div class="site-search" id="search">
+            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="1ablades.github.io"></form>
+        </div>
+        
+            <div class="site-header-background" style="background-image:url(http://reumia.github.io/hexo-theme-zzoman2015/images/background-zzoman2015.jpg)"></div>
+        
+    </header>
+    <div class="site-body">
+        <div class="global-width">
+    <article class="article" data-layout="post" data-slug="Linux下blog-TypEcho-搭建">
+        <div class="article-content">
+            
+            
+            <header class="article-header">
+                <div class="article-meta">
+                    <a href="/2017/03/14/Linux下blog-TypEcho-搭建/" class="article-date">
+  <time datetime="2017-03-14T08:48:57.000Z">2017-03-14</time>
+</a>
+                    
+                    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+                </div>
+                
+    <h1 class="article-title" itemprop="name">
+      <a href="/2017/03/14/Linux下blog-TypEcho-搭建/">Linux下blog(TypEcho)搭建</a>
+    </h1>
+
+            </header>
+            
+            <div class="article-body">
+                <p>刚搭了博客，分享下过程。</p>
+<h2 id="一、服务器"><a href="#一、服务器" class="headerlink" title="一、服务器"></a>一、服务器</h2><p>首先你需要一台服务器，我的是腾讯云1元的，配置1G 1M，需要认证学生信息，一天200台，还是挺好抢的，抢到后还会送你25元域名代金券。 <a href="https://www.qcloud.com/act/campus" target="_blank" rel="external">https://www.qcloud.com/act/campus</a><br>系统的话我装的是Centos 7，在这与低版本最大的不同就是Centos 7中不再使用service而是用systemctl代替，下面也会提到。</p>
+<h2 id="二、环境"><a href="#二、环境" class="headerlink" title="二、环境"></a>二、环境</h2><p>需要LAMP，也就是Linux+Apache+MySQL+PHP。</p>
+<p><strong>1、安装Apache</strong></p>
+<pre><code>$ yum install httpd
+</code></pre><p>将其启动并设为开机自启：</p>
+<pre><code>$ systemctl start httpd.service
+$ systemctl enable httpd.service
+</code></pre><p>记得要开通防火墙的80端口</p>
+<pre><code>$ systemctl start firewalld.service
+$ firewall-cmd --zone=public --add-port=80/tcp --permanent
+</code></pre><p>重启防火墙生效</p>
+<pre><code>$ firewall-cmd --reload
+</code></pre><p>Apache的配置文件:<br>/etc/httpd/conf/httpd.conf</p>
+<p><strong>2、安装PHP</strong></p>
+<p>$ yum intall php<br>版本为5.4<br>安装完成后会生成配置文件 /etc/httpd/conf.d/php.conf<br>php软件本身配置文件 /etc/php.ini</p>
+<p><strong>3、安装MySQL</strong></p>
+<p>centos已经不支持Mysql了，有的内部集成了mariadb，会和mysql冲突，要卸载掉。<br>安装mysql依赖</p>
+<pre><code>$ install vim libaio net-tools
+</code></pre><p>下载mysql的repo源</p>
+<pre><code>$ wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+</code></pre><p>安装mysql-community-release-el7-5.noarch.rpm包</p>
+<pre><code>$ rpm -ivh mysql-community-release-el7-5.noarch.rpm
+</code></pre><p>安装mysql</p>
+<pre><code>$ yum install mysql-server
+$ mysql -u root
+</code></pre><p>登陆可能会报错：</p>
+<pre><code>ERROR 2002 (HY000): Can‘t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock‘ (2)
+</code></pre><p>原因是 /var/lib/mysql 权限问题，将 /var/lib/mysql拥有者改为当前用户就好了</p>
+<pre><code>$ chown -R openscanner /var/lib/mysql
+</code></pre><p>然后重启服务</p>
+<pre><code>$ systemctl restart mysqld 
+</code></pre><p>安装完成后需要重置密码</p>
+<pre><code>$ mysql -u root
+mysql &gt; use mysql;
+mysql &gt; update user set password(&apos;123456&apos;) where user=&apos;root&apos;
+mysql &gt; exit;
+</code></pre><p>这里我遇到一个问题，登陆MySQL的时候会出现以下错误：</p>
+<pre><code>ERROR 1045 (28000): Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: YES)
+</code></pre><p>解决办法若干，可以卸载MySQL重新安装，我用了以下办法。</p>
+<p>停用mysql服务</p>
+<pre><code>$ systemctl stop mysqld
+</code></pre><p>进入mysql安全模式</p>
+<pre><code>$ mysqld_safe --user=mysql --skip-grant-tables --skip-netwoking &amp;
+</code></pre><p>登陆MySQL，选择mysql数据库，修改root密码</p>
+<pre><code>$ mysql -u root mysql
+mysql&gt; UPDATE user SET Password=PASSWORD(&apos;newpassword&apos;) where USER=&apos;root&apos;;
+mysql&gt; FLUSH PRIVILEGES;
+mysql&gt; quit
+</code></pre><p>重启MySQL就可以登陆了</p>
+<p><strong>4、安装php-mysql</strong></p>
+<p>php-mysql是一个用于让PHP程序使用MySQL数据库的模块。<br>因为我安装的是PHP5，所以用php-mysqlnd代替php-mysql。</p>
+<pre><code>$ yum install php-mysqlnd
+</code></pre><p>重启httpd服务</p>
+<pre><code>$ systemctl restart httpd
+</code></pre><p><strong>5、安装PHP缓存器XCache</strong></p>
+<p>LAMP已经架设好了，XCache会提高速度，降低服务器负载,用来优化PHP。<br>需要安装编译器以及php-devel(让php支持扩展)</p>
+<pre><code>$ yum install gcc
+$ yum install php-devel
+</code></pre><p>安装XCache</p>
+<pre><code>$ wget http://xcache.lighttpd.NET/pub/Releases/3.0/xcache-3.2.
+</code></pre><p>到此环境配置以及完成了，此时访问网页地址 就能看到Apache的页面。</p>
+<h2 id="三、安装TypEcho"><a href="#三、安装TypEcho" class="headerlink" title="三、安装TypEcho"></a>三、安装TypEcho</h2><p><strong>1、去官网下载</strong><a href="http://typecho.org/" target="_blank" rel="external">typecho</a></p>
+<p><strong>2、上传压缩包到Linux服务器</strong><br>这里我用的Xshel5，一个很好用的工具，可以远程链接，然后需要在Linux安装</p>
+<pre><code>$ yum install lrzsz
+</code></pre><p>在Linux执行rz，就可以上传文件到Linux的当前目录，在Xshell5 执行sz就可以将Linux的文件下载到本地。</p>
+<p><strong>3、解压并安装</strong></p>
+<pre><code>$ tar -xzvf typecho.tar.gz
+</code></pre><p>在浏览器输入<a href="http://xxx/build/install.php" target="_blank" rel="external">http://xxx/build/install.php</a> 即可进行安装。</p>
+<p>安装时注意</p>
+<ol>
+<li><p>修改build的权限，不然无法创建config配置文件。</p>
+<p>$ chmod 777 build</p>
+</li>
+<li><p>提前创建数据库。</p>
+</li>
+</ol>
+
+            </div>
+        </div>
+    </article>
+
+    
+    
+<nav class="article-nav">
+  
+    <a href="/2017/03/29/Python-socket-网络编程/" id="article-nav-newer" class="article-nav-link-wrap prev">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python socket 网络编程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/14/SQL字符限制导致任意用户登陆/" id="article-nav-older" class="article-nav-link-wrap next">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SQL字符限制导致任意用户登陆</div>
+    </a>
+  
+</nav>
+
+    
+
+    
+</div>
+    </div>
+    <footer class="site-footer">
+        <div class="global-width">
+            <ul class="site-widget">
+                
+                <li class="widget widget-tag">
+                    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web安全/">Web安全</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+                </li>
+                
+                <li class="widget widget-category">
+                    
+                </li>
+                
+                <li class="widget widget-recent_posts">
+                    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-body">
+      <ul>
+        
+          <li>
+            <a href="/2017/08/10/欧几里德算法及扩展算法/">欧几里德算法及扩展算法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/09/RSA共模攻击/">RSA共模攻击</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/08/hexo-github-blog搭建/">hexo+github blog搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/19/ShadowBrokers漏洞利用工具使用（1）/">ShadowBrokers漏洞利用工具使用（1）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/11/phpMyAdmin-getshell/">phpMyAdmin getshell</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+                </li>
+                
+            </ul>
+        </div>
+        <div class="site-info">
+            <address>
+                &copy; 2014 <a href="1ablades.github.io">1ABlades&#39; blog</a> All Right Reserved. <br/>
+                Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="http://zzoman.com">ZZOMAN</a>
+            </address>
+        </div>
+    </footer>
+    
+    <script src="/libs/jquery-1.11.3.min.js" type="text/javascript"></script>
+    
+    <script src="/libs/fancybox/jquery.fancybox.js" type="text/javascript"></script>
+    
+    <script src="/js/site_init.js" type="text/javascript"></script>
+    
+</body>
+</html>
