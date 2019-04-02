@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="1ablades.github.io/"/>
-  <updated>2019-04-02T06:59:06.866Z</updated>
+  <updated>2019-04-02T07:12:35.643Z</updated>
   <id>1ablades.github.io/</id>
   
   <author>
@@ -20,16 +20,16 @@
     <link href="1ablades.github.io/2019/04/02/%E6%97%A0%E7%BA%BF%E5%AE%89%E5%85%A8%E5%88%9D%E6%8E%A2/"/>
     <id>1ablades.github.io/2019/04/02/无线安全初探/</id>
     <published>2019-04-02T06:56:44.000Z</published>
-    <updated>2019-04-02T06:59:06.866Z</updated>
+    <updated>2019-04-02T07:12:35.643Z</updated>
     
     <content type="html"><![CDATA[<h1 id="0x01-无线基础"><a href="#0x01-无线基础" class="headerlink" title="0x01 无线基础"></a>0x01 无线基础</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>SSID：又称ESSID是一个无线AP的名称。<br>BSSID：无线AP的MAC地址，用于数据链路程数据帧传输<br>信道（频道）：无线网络信号在空气中以电磁波传播，他的频率是2.4～2.4835GHz，而这些频段又被化分为11或13个信道（802.11b/g网络标准，普通路由都是这个标准） </p>
 <p>通常情况下，默认的信道是“6”，这在单一的无线网络环境中可以正常使用，但如果处于多个无线网络的覆盖范围内，无线路由器都使用默认的信道“6”，肯定会产生冲突的，影响无线网络的性能。<br>虽然在802.11b/g网络标准中，无线网络的信道虽然可以有13个，但非重叠的信道，也就是不互相干扰的信道只有1、6、11（或13）这三个。   </p>
-<h2 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h2><h3 id="WPA-PSK-WPA2-PSK"><a href="#WPA-PSK-WPA2-PSK" class="headerlink" title="WPA-PSK/WPA2-PSK"></a>WPA-PSK/WPA2-PSK</h3><p>WPA-PSK/WPA2-PSK安全类型其实是WPA/WPA2的一种简化版本，它是基于共享密钥的WPA模式，安全性很高，设置也比较简单，适合普通家庭用户和小型企业使用。</p>
-<h3 id="WPA-WPA2"><a href="#WPA-WPA2" class="headerlink" title="WPA/WPA2"></a>WPA/WPA2</h3><p>WPA/WPA2是一种比WEP强大的加密算法，选择这种安全类型，路由器将采用Radius服务器进行身份认证并得到密钥的WPA或WPA2安全模式。由于要架设一台专用的认证服务器，代价比较昂贵且维护也很复杂，所以不推荐普通用户使用此安全类型。</p>
-<h3 id="WEP"><a href="#WEP" class="headerlink" title="WEP"></a>WEP</h3><p>WEP是Wired Equivalent Privacy的缩写，它是一种基本的加密方法，其安全性不如另外两种安全类型高。选择WEP安全类型，路由器将使用802.11基本的WEP安全模式。 这里需要注意的是因为802.11N不支持此加密方式，如果您选择此加密方式，路由器可能会工作在较低的传输速率上。</p>
-<h2 id="加密方法"><a href="#加密方法" class="headerlink" title="加密方法"></a>加密方法</h2><h3 id="QSS"><a href="#QSS" class="headerlink" title="QSS"></a>QSS</h3><p>QSS又称快速安全设置，通过按下无线路由和无线网卡上的QSS按钮，即可自动建立WPA2级别的安全连接，无需在路由器或网卡管理软件的界面上进行繁琐的设置，大大简化无线安全设置的操作。  </p>
-<h3 id="WPS"><a href="#WPS" class="headerlink" title="WPS"></a>WPS</h3><p>WPS（Wi-Fi Protected Setup，WiFi保护设置），它是由WiFi联盟组织实施的可选认证项目，它主要致力于简化无线网络设置及无线网络加密等工作。一般情况下，用户在新建一个无线网络时，为了保证无线网络的安全，都会对无线网络名称（SSID）和无线加密方式进行设置，即“隐藏SSID”和设置“无线网络连接密码”</p>
-<h3 id="WPS-PIN码"><a href="#WPS-PIN码" class="headerlink" title="WPS PIN码"></a>WPS PIN码</h3><p>WPS PIN码的第8位数是一个校验和（checksum），因此黑客只需算出前7位数即可。这样，唯一的PIN码的数量降了一个级次变成了10的7次方，也就是说有1000万种变化。<br>在 实施PIN的身份识别时，接入点(无线路由器)实际上是要找出这个PIN的前半部分(前4位)和后半部分(后3位)是否正确即可。当第一次PIN认证连接 失败后，路由器会向客户端发回一个EAP-NACK信息，而通过该回应，攻击者将能够确定的PIN前半部或后半部是否正确。换句话说，黑客只需从7位数的 PIN中找出一个4位数的PIN和一个3位数的PIN。这样一来，级次又被降低，从1000万种变化，减少到11000（10的4次方+10的3次方）种 变化。因此，在实际破解尝试中，黑客最多只需试验11000次，平均只需试验大约5500次就能破解。这也证实了在2小时内破解PIN码的可行性。</p>
+<h2 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h2><h4 id="WPA-PSK-WPA2-PSK"><a href="#WPA-PSK-WPA2-PSK" class="headerlink" title="WPA-PSK/WPA2-PSK"></a>WPA-PSK/WPA2-PSK</h4><p>WPA-PSK/WPA2-PSK安全类型其实是WPA/WPA2的一种简化版本，它是基于共享密钥的WPA模式，安全性很高，设置也比较简单，适合普通家庭用户和小型企业使用。</p>
+<h4 id="WPA-WPA2"><a href="#WPA-WPA2" class="headerlink" title="WPA/WPA2"></a>WPA/WPA2</h4><p>WPA/WPA2是一种比WEP强大的加密算法，选择这种安全类型，路由器将采用Radius服务器进行身份认证并得到密钥的WPA或WPA2安全模式。由于要架设一台专用的认证服务器，代价比较昂贵且维护也很复杂，所以不推荐普通用户使用此安全类型。</p>
+<h4 id="WEP"><a href="#WEP" class="headerlink" title="WEP"></a>WEP</h4><p>WEP是Wired Equivalent Privacy的缩写，它是一种基本的加密方法，其安全性不如另外两种安全类型高。选择WEP安全类型，路由器将使用802.11基本的WEP安全模式。 这里需要注意的是因为802.11N不支持此加密方式，如果您选择此加密方式，路由器可能会工作在较低的传输速率上。</p>
+<h2 id="加密方法"><a href="#加密方法" class="headerlink" title="加密方法"></a>加密方法</h2><h4 id="QSS"><a href="#QSS" class="headerlink" title="QSS"></a>QSS</h4><p>QSS又称快速安全设置，通过按下无线路由和无线网卡上的QSS按钮，即可自动建立WPA2级别的安全连接，无需在路由器或网卡管理软件的界面上进行繁琐的设置，大大简化无线安全设置的操作。  </p>
+<h4 id="WPS"><a href="#WPS" class="headerlink" title="WPS"></a>WPS</h4><p>WPS（Wi-Fi Protected Setup，WiFi保护设置），它是由WiFi联盟组织实施的可选认证项目，它主要致力于简化无线网络设置及无线网络加密等工作。一般情况下，用户在新建一个无线网络时，为了保证无线网络的安全，都会对无线网络名称（SSID）和无线加密方式进行设置，即“隐藏SSID”和设置“无线网络连接密码”</p>
+<h4 id="WPS-PIN码"><a href="#WPS-PIN码" class="headerlink" title="WPS PIN码"></a>WPS PIN码</h4><p>WPS PIN码的第8位数是一个校验和（checksum），因此黑客只需算出前7位数即可。这样，唯一的PIN码的数量降了一个级次变成了10的7次方，也就是说有1000万种变化。<br>在 实施PIN的身份识别时，接入点(无线路由器)实际上是要找出这个PIN的前半部分(前4位)和后半部分(后3位)是否正确即可。当第一次PIN认证连接 失败后，路由器会向客户端发回一个EAP-NACK信息，而通过该回应，攻击者将能够确定的PIN前半部或后半部是否正确。换句话说，黑客只需从7位数的 PIN中找出一个4位数的PIN和一个3位数的PIN。这样一来，级次又被降低，从1000万种变化，减少到11000（10的4次方+10的3次方）种 变化。因此，在实际破解尝试中，黑客最多只需试验11000次，平均只需试验大约5500次就能破解。这也证实了在2小时内破解PIN码的可行性。</p>
 <h1 id="0x02-渗透思路"><a href="#0x02-渗透思路" class="headerlink" title="0x02 渗透思路"></a>0x02 渗透思路</h1><p>WEP加密方式，通过漏洞破解（少见）<br>开启wps功能的，通过pin码破解<br>Wpa/wpa2加密，通过抓取握手包，暴力穷举密码破解  </p>
 <h1 id="0x03-实战演练"><a href="#0x03-实战演练" class="headerlink" title="0x03 实战演练"></a>0x03 实战演练</h1><p>网卡：TP-Link TL-WN722N<br>路由器： D-Link dir-615</p>
 <h2 id="0、基本命令"><a href="#0、基本命令" class="headerlink" title="0、基本命令"></a>0、基本命令</h2><pre><code>iwconfig          //查看网卡信息、进行配置
@@ -122,7 +122,7 @@ airodump-ng -c 1 --bssid 20:6B:E7:42:36:C0 -w /wlan/cap/wep wlan0
 </code></pre><p><img src="https://1ablades.oss-cn-beijing.aliyuncs.com/img/20190328104113.png" alt=""></p>
 <p>获取到数据包，就可以像之前一样aircrack破解wep</p>
 <p>将airbase的 <code>-L</code> 参数换为 <code>-N</code> 即可进行Hirte攻击，它其实是caffe latte 的扩展，攻击流程与上相同</p>
-<h2 id="8、未授权接入点"><a href="#8、未授权接入点" class="headerlink" title="8、未授权接入点"></a>8、未授权接入点</h2><p>我们可以利用创建接入点+桥接创造一个后门，绕过无线的安全控制，直接未授权访问</p>
+<h2 id="9、未授权接入点"><a href="#9、未授权接入点" class="headerlink" title="9、未授权接入点"></a>9、未授权接入点</h2><p>我们可以利用创建接入点+桥接创造一个后门，绕过无线的安全控制，直接未授权访问</p>
 <p>首先我们需要安装一个桥接工具 <code>bridge-utils</code></p>
 <pre><code>apt-get install bridge-utils
 
